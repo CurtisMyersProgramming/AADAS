@@ -3,12 +3,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.*;
+import java.util.stream.*;
 
 import static java.lang.Double.parseDouble;
 
 public class AADAS {
 
-    public static Scanner reader = new Scanner(System.in);
+    public static Scanner reader = new Scanner(System.in); // declaring all strings that will be produced from the csv file into the array.
     public final String SEP = ",";
     public String Eventid;
     public String InvestigationType;
@@ -44,8 +46,8 @@ public class AADAS {
     public String PublicationDate;
 
 
-    public AADAS(String csvString) {
-        String[] csvParts = csvString.split(SEP, -1);
+    public AADAS(String csvString) { // reading the strings into an array
+        String[] csvParts = csvString.split(SEP);
         int i = 0;
         Eventid = csvParts[i++];
         InvestigationType = csvParts[i++];
@@ -83,7 +85,7 @@ public class AADAS {
 
     }
 
-    public String toCSVString() {
+    public String toCSVString() { // how to strings will be formatted if all were printed and how they can be called from the array list
         return Eventid + SEP + InvestigationType + SEP + accidetnNumber + SEP + EventDate + SEP + Location + SEP + state + SEP + Country + SEP + Latitude + SEP +
                 Longitude + SEP + Airportcode + SEP + AirportName + SEP + InjurySeverity + SEP + AircraftDamage + SEP + AircraftCategory + SEP +
                 RegistrationNumber + SEP + Make + SEP + Model + SEP + AmateurBuilt + SEP + NunberOfEngines + SEP + EngineType + SEP + FARDescription + SEP + Schedule + SEP +
@@ -92,7 +94,7 @@ public class AADAS {
 
     }
 
-
+     // main method currently contains file reader and basic menu system to be updated as more work is added
     public static void main(String[] args) throws FileNotFoundException {
         ArrayList<AADAS> crash = readFile("src/csv.csv");
         menu();
@@ -101,11 +103,13 @@ public class AADAS {
             outputCrashes(crash);
         } else if (input.startsWith("hello")) {
             System.out.println("hello");
+        } else if(input.startsWith("year")){
+            year(crash);
         }
-        ;
+
 
     }
-
+    // test class which outputs all data from csv to test file size
     private static void outputCrashes(List<AADAS> crash) {
         for (int i = 0; i < crash.size(); i++) {
             AADAS currentCrash = crash.get(i);
@@ -120,26 +124,47 @@ public class AADAS {
         }
 
     }
+    // FEATURE 1 - OUTPUT ALL YEARS
+    public static void year(List<AADAS> crash) { // DECLARE PUBLIC CLASS
+       int j =0; // initialised int j for counter later of how many years are read through to display
+        ArrayList<String> years = new ArrayList<String>(); // new arraylist called years
+        for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
+            AADAS currentCrash = crash.get(i); // populating array with lines
+            years.add(currentCrash.EventDate.substring(6, 10)); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 
+        }
+         TreeSet myTreeSet = new TreeSet(); // initialising new treeset called myTreeSet
+            myTreeSet.addAll(years); // adding all data from years array (all dates) to tree set (ordered set)
+            for (Object s: myTreeSet) // reading through tree set
+                System.out.println(s); // output dates in order
+        for(int y=0; y < myTreeSet.size(); y++){ // for loop which calculates how many times my tree size loops and prints
+            j++; // +1 every loop meaning that outcome will be amount of years printed
+
+
+        }
+        System.out.println("There are " + j + " years of data available"); // prints how many years of data are shown from treeset
+    }
+
+// basic menu method - will be adjusted
     public static void menu() {
         System.out.println("Welcome to the Air Accident data Analysis System, below are the options of what records we have to offer: ");
         System.out.println("all crashes, year, hello");
         System.out.print("Please enter the option you would like as you see it above: ");
 
     }
-
+// file reader to populate array
     public static ArrayList<AADAS> readFile(String filename) throws FileNotFoundException {
-        ArrayList<AADAS> crashes = new ArrayList<>();
-        File csvFile = new File(filename);
-        Scanner csvScan = new Scanner(csvFile);
+        ArrayList<AADAS> crashes = new ArrayList<>(); // initalising new arraylist
+        File csvFile = new File(filename); // new filereader
+        Scanner csvScan = new Scanner(csvFile);// new scanner
 
-        csvScan.nextLine(); // read header
-        while (csvScan.hasNextLine()) {
-            String line = csvScan.nextLine();
+        csvScan.nextLine(); // read next line from scanner
+        while (csvScan.hasNextLine()) { // while next line is available run this
+            String line = csvScan.nextLine(); // whilst next line populate string line with line from file
 
-            AADAS crash = new AADAS(line);
+            AADAS crash = new AADAS(line); // add line to array
 
-                crashes.add(crash);
+                crashes.add(crash);// add to array
            
         }
 
