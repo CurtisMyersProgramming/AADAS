@@ -105,6 +105,8 @@ public class AADAS {
             System.out.println("hello");
         } else if(input.startsWith("year")){
             year(crash);
+        } else if(input.startsWith("POF")) {
+        	phase(crash);
         }
 
 
@@ -144,11 +146,31 @@ public class AADAS {
         }
         System.out.println("There are " + j + " years of data available"); // prints how many years of data are shown from treeset
     }
+    //FEATURE 2 - OUTPUT ALL PHASES OF FLIGHT
+    public static void phase(List<AADAS> crash) { //DECLARE PUBLIC CLASS
+    	ArrayList<String> phases = new ArrayList<String>();//Creating new Array list for Phases of Flight
+    	for(int i = 0; i < crash.size(); i++ ) { //this reads through the original Array List Crash
+    		AADAS phaseOfFlight = crash.get (i); // populates string to add to array
+    		phases.add(phaseOfFlight.BroadPhaseofFlight);//adds the information to phases for BPOF
+    		}
+    	TreeSet pofTreeSet = new TreeSet();//Creating a new Tree Set for Phases of Flight
+    	pofTreeSet.addAll(phases);//Adding array to the tree set.
+    	for (Object f: pofTreeSet) {
+    		System.out.println(f);
+    	
+    	}
+    	
+    	
+    	
+    	
+    	
+    }
+    
 
 // basic menu method - will be adjusted
     public static void menu() {
         System.out.println("Welcome to the Air Accident data Analysis System, below are the options of what records we have to offer: ");
-        System.out.println("all crashes, year, hello");
+        System.out.println("all crashes, year, POF, hello");
         System.out.print("Please enter the option you would like as you see it above: ");
 
     }
