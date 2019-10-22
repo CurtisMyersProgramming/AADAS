@@ -173,7 +173,7 @@ public class AADAS {
     		System.out.println("[ 4 - All Accidents         ]");
     		System.out.println("[ Q - Quit                  ]\n");
     		System.out.println("Enter Choice:");
-    		userInput = s.nextLine();
+    		userInput = s.nextLine().toUpperCase();
 
     		//Switch statement to allow the user to select which method to load
     		switch (userInput) {
@@ -199,7 +199,7 @@ public class AADAS {
     			System.out.println("-- Below you have a list of all of the accidents recorded --\n");
     			//accidents(crash);
     			break;
-    		case "q":
+    		case "Q" :
     			
     			Scanner sure = new Scanner(System.in);
     			System.out.println("* Are you sure you wish to exit? Y/N *");

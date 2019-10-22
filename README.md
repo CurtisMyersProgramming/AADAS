@@ -13,13 +13,10 @@ Changes needed
 - better menu system with actual features for options
 - Feature 2 to be addedAADAS - Air Accident Data Analysis System 
 
-
-Version 0.1 - 14/10/19
-- basic menu system 
-- basic file reading outputting all options from file 
-
-
 **Version 1.1** - Feature Menu Update 22/10/2019 - pushed by Caolan
 
 - New Switch Case menu that calls different methods
 
+**Version 1.2** - Menu Update 22/10/2019 - pushed by Curtis
+
+- fixed bug on menu where upper case Q wouldn't be registered
