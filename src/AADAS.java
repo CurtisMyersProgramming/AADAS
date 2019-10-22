@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -96,17 +97,9 @@ public class AADAS {
 
      // main method currently contains file reader and basic menu system to be updated as more work is added
     public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<AADAS> crash = readFile("src/csv.csv");
+    	System.out.println("Welcome to the Air Accident data Analysis System. \nBelow are the available search options: ");
         menu();
-        String input = reader.nextLine();
-        if (input.startsWith("all crashes")) {
-            outputCrashes(crash);
-        } else if (input.startsWith("hello")) {
-            System.out.println("hello");
-        } else if(input.startsWith("year")){
-            year(crash);
-        }
-
+     
 
     }
     // test class which outputs all data from csv to test file size
@@ -133,7 +126,7 @@ public class AADAS {
             years.add(currentCrash.EventDate.substring(6, 10)); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 
         }
-         TreeSet myTreeSet = new TreeSet(); // initialising new treeset called myTreeSet
+         TreeSet<String> myTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
             myTreeSet.addAll(years); // adding all data from years array (all dates) to tree set (ordered set)
             for (Object s: myTreeSet) // reading through tree set
                 System.out.println(s); // output dates in order
@@ -142,16 +135,104 @@ public class AADAS {
 
 
         }
-        System.out.println("There are " + j + " years of data available"); // prints how many years of data are shown from treeset
+        System.out.println("\n There are " + j + " years of data available"); // prints how many years of data are shown from treeset
     }
+    
+    
+    public static void flightPhase(List<AADAS> crash) {
+    int p =0; // initialised int p for counter later of how many phases are read through to display
+    ArrayList<String> phases = new ArrayList<String>(); // new arraylist called phases
+    for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
+        AADAS currentCrash = crash.get(i); // populating array with lines
+        phases.add(currentCrash.AircraftCategory);
+        }
+    
+    TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
+    newTreeSet.addAll(phases); // adding all data from phases array to tree set (ordered set)
+    for (Object s: newTreeSet) // reading through tree set
+        System.out.println(s); // output phases in order
+    for(int y=0; y < newTreeSet.size(); y++){ // for loop which calculates how many times new tree size loops and prints
+    p++; // +1 every loop meaning that outcome will be amount of phases printed
+    }
+}
 
 // basic menu method - will be adjusted
-    public static void menu() {
-        System.out.println("Welcome to the Air Accident data Analysis System, below are the options of what records we have to offer: ");
-        System.out.println("all crashes, year, hello");
-        System.out.print("Please enter the option you would like as you see it above: ");
+    
+	public static void menu() throws FileNotFoundException { //DECLARE PUBLIC CLASS
+    	ArrayList<AADAS> crash = readFile("src/csv.csv"); //Crash array list read from the .csv file
+    	Scanner s = new Scanner(System.in); //Initialise Scanner
+    	String userInput = ""; //Allow for user input
 
+    	//while loop to output menu and read the users input
+    	while (!userInput.equals("q")) {
+
+    		System.out.println(" \n      -----Menu-----");
+    		System.out.println("[ 1 - All Recorded Crashes  ]");
+    		System.out.println("[ 2 - Event Dates           ]");
+    		System.out.println("[ 3 - Phases of Flight      ]");
+    		System.out.println("[ 4 - All Accidents         ]");
+    		System.out.println("[ Q - Quit                  ]\n");
+    		System.out.println("Enter Choice:");
+    		userInput = s.nextLine();
+
+    		//Switch statement to allow the user to select which method to load
+    		switch (userInput) {
+
+    		case "1":
+    			System.out.println("\n-- You have selected All Crashes --\n");
+    			System.out.println("-- Below you have a list of all of the crashes recorded --\n");
+    			outputCrashes(crash);
+    			break;
+    		case "2":
+    			System.out.println("\n-- You have selected Event Dates --\n");
+    			System.out.println("-- Below you have a list of all of the Event dates --\n");
+
+    			year(crash);
+    			break;
+    		case "3":
+    			System.out.println("\n-- You have selected Phases of Flight --\n");
+    			System.out.println("-- Below you will see all of the phases of flight --\n");
+    			flightPhase(crash);
+    			break;
+    		case "4":
+    			System.out.println("\n-- You have selected All Accidents --\n");
+    			System.out.println("-- Below you have a list of all of the accidents recorded --\n");
+    			//accidents(crash);
+    			break;
+    		case "q":
+    			
+    			Scanner sure = new Scanner(System.in);
+    			System.out.println("* Are you sure you wish to exit? Y/N *");
+    			String result = sure.nextLine();
+    			switch (result) {
+    			case "Y":
+    				System.out.println("Thanks for using the system!");
+    				System.exit(1);
+    				break;
+    			case "y":
+    				System.out.println("Thanks for using the system!");
+    				System.exit(1);
+    				break;
+    			case "N":
+    				System.out.println("Ok! Returning to menu.\n");
+    				main(null);
+    			case "n":
+    				System.out.println("Ok! Returning to menu.\n");
+    				main(null);
+    			default :   
+    				System.out.println("* Input Failed. Please restart the programme * \n\n");
+    				break;
+    			}
+
+    			break;
+    		default:
+    			System.out.println("Please enter a valid option\n\n");
+
+    		}
+    	}
     }
+   
+
 // file reader to populate array
     public static ArrayList<AADAS> readFile(String filename) throws FileNotFoundException {
         ArrayList<AADAS> crashes = new ArrayList<>(); // initalising new arraylist
@@ -174,6 +255,3 @@ public class AADAS {
 
     }
 }
-
-
-
