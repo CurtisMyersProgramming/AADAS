@@ -13,11 +13,24 @@ Changes needed
 - better menu system with actual features for options
 - Feature 2 to be addedAADAS - Air Accident Data Analysis System 
 
-**Version 2.0** - Feature 2 complete - 18/10/19 - pushed by Connor 
 
-- feature 2 to display all Phases of Flight available main file still needs implementing and testing
+**Version 1.1** - Feature Menu Update 22/10/2019 - pushed by Caolan
+
 
 Changes needed
 
 - better menu system with features for options (priority)
 - feature 3 to be added to AADAS - Air Accident Data Analysis System 
+
+- New Switch Case menu that calls different methods
+
+**Version 1.2** - Menu Update 22/10/2019 - pushed by Curtis
+
+- fixed bug on menu where upper case Q wouldn't be registered
+>>>>>>> branch 'master' of https://github.com/xXNRGXx/AADAS.git
+
+**Version 2** - Feature 2 24/10/2019	
+
+- phases of flight added to the project
+
+
