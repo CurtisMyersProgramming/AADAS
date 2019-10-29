@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 public class AADAS {
 
+
 	public static Scanner reader = new Scanner(System.in); // declaring all strings that will be produced from the csv
 															// file into the array.
 	public final String SEP = ",";
@@ -316,4 +317,5 @@ public class AADAS {
 		return crashes;
 
 	}
-}
+
+   

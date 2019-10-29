@@ -13,7 +13,14 @@ Changes needed
 - better menu system with actual features for options
 - Feature 2 to be addedAADAS - Air Accident Data Analysis System 
 
+
 **Version 1.1** - Feature Menu Update 22/10/2019 - pushed by Caolan
+
+
+Changes needed
+
+- better menu system with features for options (priority)
+- feature 3 to be added to AADAS - Air Accident Data Analysis System 
 
 - New Switch Case menu that calls different methods
 
@@ -21,9 +28,13 @@ Changes needed
 
 - fixed bug on menu where upper case Q wouldn't be registered
 
+
+**Version 2** - Feature 2 24/10/2019	
+
+- phases of flight added to the project
+
 **Version 3.0** - Feature 3 complete - 29/10/2019 - pushed by Curtis
 
 - Feature 3 added displays all reports for chosen phase of flight and year 
   (needs some kind of validation?)
-  
- 
+
