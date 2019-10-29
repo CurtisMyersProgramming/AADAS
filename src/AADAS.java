@@ -182,52 +182,39 @@ public class AADAS {
 
 	// FEATURE 3
 	public static void Feature3(List<AADAS> crash) {
-		//int p = 0; // initialised int p for counter later of how many phases are read through to
-					// display
-		ArrayList<String> spof = new ArrayList<String>();
-		for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
-			AADAS currentCrash = crash.get(i);
-			spof.add(currentCrash.BroadPhaseofFlight);
+		
+		Scanner s = new Scanner(System.in); // declare new scanner
+		String inputflight = ""; // declare input for flight
+		String inputyear = ""; // declare input for year 
 
-		}
-		Scanner s = new Scanner(System.in);
-		String inputflight = "";
-		String inputyear = "";
+		System.out.println("Please specify the phase of flight you would like to view the options are:\n"); // output message to user
+		flightPhase(crash); // call method to output all phases of flight
+		System.out.println("\nSelection: "); // print out prompt for user to enter choice
+		inputflight = s.nextLine().toUpperCase(); // input for user must always go to uppercase as csv is uppercase
+		
 
-		System.out.println("Please specify the phase of flight you would like to view the options are:");
-		flightPhase(crash);
-		System.out.println("\nSelection: ");
-		inputflight = s.nextLine();
+		System.out.println("\nPlease specify the year you would like to view the options are:\n"); // print prompt for years
+		year(crash); // method to print years
+		System.out.println("\nYear selection: "); // prompt for year input
+		inputyear = s.nextLine(); //take year input 
+	
 
-		System.out.println("\nPlease specify the year you would like to view the options are:");
-		year(crash);
-		System.out.println("\nYear selection: ");
-		inputyear = s.nextLine();
-		// for (String x : spof) {
-		// if(inputflight.equals(x)){
-		// p++;
-		//
-		// } else {
-		// continue;
-		// }
-		// }
-
-		List<AADAS> matches = new ArrayList<>();
+		List<AADAS> matches = new ArrayList<>(); // initalise new arraylist called matches
 		
 		for (AADAS c : crash) { // reading through inital array list through whole csv
-			if (c.BroadPhaseofFlight.equals(inputflight) && c.getYear().equals(inputyear))
-				matches.add(c);
+			if (c.BroadPhaseofFlight.equals(inputflight) && c.getYear().equals(inputyear)) // if user inputs meets conditions add that current csv string in to the array
+				matches.add(c); // add into array matches
 
 		}
 
-		System.out.print("There are " + matches.size() + " records that contain " + inputflight + " and match the year you chose");
+		System.out.println("\nThere are " + matches.size() + " records that contain " + inputflight + " and match the year "+ inputyear); // print out message showing user how many records match 
 		
 //		for (AADAS c: matches)
 //			System.out.println(c.getYear()+", "+c.AirCarrier);
 		
-		outputCrashes(matches);
+		outputCrashes(matches); // call method to output all crashes with the array matches for what to print
 
-		System.out.print(spof);
+		
 
 	}
 

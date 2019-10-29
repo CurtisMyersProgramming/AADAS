@@ -20,3 +20,10 @@ Changes needed
 **Version 1.2** - Menu Update 22/10/2019 - pushed by Curtis
 
 - fixed bug on menu where upper case Q wouldn't be registered
+
+**Version 3.0** - Feature 3 complete - 29/10/2019 - pushed by Curtis
+
+- Feature 3 added displays all reports for chosen phase of flight and year 
+  (needs some kind of validation?)
+  
+ 
