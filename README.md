@@ -38,3 +38,12 @@ Changes needed
 - Feature 3 added displays all reports for chosen phase of flight and year 
   (needs some kind of validation?)
 
+**Version 3.1** - Feature 4 Added - 31/10/2019 - pushed by Curtis
+
+- Feature 4 added 
+
+- issues with feature 
+  - need to fix file read to parse ints that are blank asw ell as fix issues with states and locations
+  
+- all options for first part of feature added must be modified when issues are fixed
+- csv file is now less records to accomidate for issues when issue is fixed should be able to use full 80k file

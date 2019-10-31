@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -11,7 +12,7 @@ public class AADAS {
 
 	public static Scanner reader = new Scanner(System.in); // declaring all strings that will be produced from the csv
 															// file into the array.
-	public final String SEP = ",";
+	public final String SEP = (",");
 	public String Eventid;
 	public String InvestigationType;
 	public String accidetnNumber;
@@ -36,9 +37,9 @@ public class AADAS {
 	public String Schedule;
 	public String PurposeOfFlight;
 	public String AirCarrier;
-	public String TotalFatalInjuries;
-	public String TotalSeriousInjuries;
-	public String TotalMinorInjuries;
+	public int TotalFatalInjuries;
+	public int TotalSeriousInjuries;
+	public int TotalMinorInjuries;
 	public String TotalUninjured;
 	public String WeatherCondition;
 	public String BroadPhaseofFlight;
@@ -46,7 +47,7 @@ public class AADAS {
 	public String PublicationDate;
 
 	public AADAS(String csvString) { // reading the strings into an array
-		String[] csvParts = csvString.split(SEP);
+		String[] csvParts = csvString.split(SEP, -1);
 		int i = 0;
 		Eventid = csvParts[i++];
 		InvestigationType = csvParts[i++];
@@ -55,8 +56,8 @@ public class AADAS {
 		Location = csvParts[i++];
 		state = csvParts[i++];
 		Country = csvParts[i++];
-		Latitude = csvParts[i++];
-		Longitude = csvParts[i++];
+		Latitude =  csvParts[i++];
+		Longitude =  csvParts[i++];
 		Airportcode = csvParts[i++];
 		AirportName = csvParts[i++];
 		InjurySeverity = csvParts[i++];
@@ -66,15 +67,15 @@ public class AADAS {
 		Make = csvParts[i++];
 		Model = csvParts[i++];
 		AmateurBuilt = csvParts[i++];
-		NunberOfEngines = csvParts[i++];
+		NunberOfEngines =  csvParts[i++];
 		EngineType = csvParts[i++];
 		FARDescription = csvParts[i++];
 		Schedule = csvParts[i++];
 		PurposeOfFlight = csvParts[i++];
 		AirCarrier = csvParts[i++];
-		TotalFatalInjuries = csvParts[i++];
-		TotalSeriousInjuries = csvParts[i++];
-		TotalMinorInjuries = csvParts[i++];
+		TotalFatalInjuries =  Integer.valueOf(csvParts[i++]);
+		TotalSeriousInjuries = Integer.valueOf(csvParts[i++]);
+		TotalMinorInjuries = Integer.valueOf(csvParts[i++]);
 		TotalUninjured = csvParts[i++];
 		WeatherCondition = csvParts[i++];
 		BroadPhaseofFlight = csvParts[i++];
@@ -183,6 +184,7 @@ public class AADAS {
 
 	// FEATURE 3
 	public static void Feature3(List<AADAS> crash) {
+
 		
 		Scanner s = new Scanner(System.in); // declare new scanner
 		String inputflight = ""; // declare input for flight
@@ -219,8 +221,102 @@ public class AADAS {
 
 	}
 
-	// basic menu method - will be adjusted
+	//FEATURE 4 
+	public static void Feature4(List<AADAS> crash) throws FileNotFoundException {
+		Scanner s = new Scanner(System.in);
+		while (!s.equals("Q")) {
+		System.out.println("\n1 - Flights that killed everybody aboard");
+		System.out.println("2 - Flights that were deadly but the amount of survivors was greater than or equal to the amount perished");
+		System.out.println("3 - Flights that were not deadly but resulted in serious or minor inujury");
+		System.out.println("4 - Flights that resulted in no fatalities or injuries");
+		System.out.println("Q - Quit to main menu ");
+		
+		
+		
+		System.out.print("\nSelection: ");
+		String selection = s.nextLine().toUpperCase();
+		
+		if(selection.equals("1")) {
+			List<AADAS> matches = new ArrayList<>(); // initalise new arraylist called matches
+			int p = 0;
+			for (AADAS c : crash) { // reading through inital array list through whole csv
+				if (c.TotalSeriousInjuries == 0 && c.TotalMinorInjuries == 0 && c.TotalFatalInjuries > 1){ // if user inputs meets conditions add that current csv string in to the array
+					matches.add(c); // add into array matches
+					p++;
 
+			}
+				
+			}
+			System.out.println("There are " + p + " records that match the criteria of eveybody onboard dying");
+			outputCrashes(matches);
+			
+		}
+		else if(selection.equals("2")) 
+		{
+			List<AADAS> matches = new ArrayList<>(); // initalise new arraylist called matches
+			int p = 0;
+			for (AADAS c : crash) { // reading through inital array list through whole csv
+				if (c.TotalFatalInjuries >= 1 && c.TotalSeriousInjuries + c.TotalMinorInjuries >= c.TotalFatalInjuries){ // if user inputs meets conditions add that current csv string in to the array
+					matches.add(c); // add into array matches
+					p++;
+
+			}
+				
+			}
+			System.out.println("There are " + p + " records that match the criteria of the flight being deadly but the amount of surviviors being greater or equal to the amount perished");
+			outputCrashes(matches);
+			
+		} 
+			
+		else if(selection.equals("3")) 
+		{
+			List<AADAS> matches = new ArrayList<>(); // initalise new arraylist called matches
+			int p = 0;
+			for (AADAS c : crash) { // reading through inital array list through whole csv
+				if (c.TotalFatalInjuries == 0 && c.TotalSeriousInjuries >= 1 && c.TotalMinorInjuries >=1){ // if user inputs meets conditions add that current csv string in to the array
+					matches.add(c); // add into array matches
+					p++;
+
+			}
+				
+			}
+			System.out.println("There are " + p + " records that match the criteria of flights that were not deadly but resulted in serious or minor injury");
+			outputCrashes(matches);
+			
+		} 
+		
+		else if(selection.equals("4")) 
+		{
+			List<AADAS> matches = new ArrayList<>(); // initalise new arraylist called matches
+			int p = 0;
+			for (AADAS c : crash) { // reading through inital array list through whole csv
+				if (c.TotalFatalInjuries == 0 && c.TotalSeriousInjuries == 0 && c.TotalMinorInjuries == 0){ // if user inputs meets conditions add that current csv string in to the array
+					matches.add(c); // add into array matches
+					p++;
+
+			}
+				
+			}
+			System.out.println("There are " + p + " records that match the criteria of flights that had 0 fatalities or injuries");
+			outputCrashes(matches);
+			
+		} 
+		else if(selection.equals("Q")) 
+		{
+		menu();
+		}
+		else {
+			System.out.println("\nPlease enter a valid input from the menu system\n");
+				}
+			}
+
+		}
+		
+		
+	
+	
+	
+	
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
 		ArrayList<AADAS> crash = readFile("src/csv.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
@@ -234,8 +330,9 @@ public class AADAS {
 			System.out.println("[ 2 - Event Dates                               ]");
 			System.out.println("[ 3 - Phases of Flight                          ]");
 			System.out.println("[ 4 - Specific phase of flight and year         ]");
+			System.out.println("[ 5 - Specifcs of crashes                       ]");
 			System.out.println("[ Q - Quit                                      ]\n");
-			System.out.println("Enter Choice:");
+			System.out.print("Enter Choice:");
 			userInput = s.nextLine().toUpperCase();
 
 			// Switch statement to allow the user to select which method to load
@@ -261,8 +358,12 @@ public class AADAS {
 				System.out.println("\n-- You have selected specific phase of flight and year --\n");
 				System.out.println(
 						"-- Below you have a list of all of the accidents recorded for the options you have chosen --\n");
-				// accidents(crash);
 				Feature3(crash);
+				break;
+			case "5":
+				System.out.println("\n-- You have selected Specifcs of crashes --\n");
+				System.out.println("-- Below you have a list of all the specifc records we can provide --");
+				Feature4(crash);
 				break;
 			case "Q":
 
