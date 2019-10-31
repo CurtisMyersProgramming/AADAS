@@ -43,7 +43,13 @@ Changes needed
 - Feature 4 added 
 
 - issues with feature 
-  - need to fix file read to parse ints that are blank asw ell as fix issues with states and locations
+  - need to fix file read to parse ints that are blank as well as fix issues with states and locations
   
 - all options for first part of feature added must be modified when issues are fixed
 - csv file is now less records to accomidate for issues when issue is fixed should be able to use full 80k file
+
+**Version 3.2** - Feature 4 update - 31/10/2019 - pushed by Curtis & Connor
+
+- issue from 3.1 patched - now parses empty numbers and locations in quotes 
+
+
