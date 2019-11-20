@@ -52,7 +52,7 @@ Changes needed
 
 - issue from 3.1 patched - now parses empty numbers and locations in quotes 
 
-**version 4.0** - feature 4 complete & feature 5 90% complete - 16/11/2019 - pushed by Curtis
+**version 4.0** - Feature 4 complete & feature 5 90% complete - 16/11/2019 - pushed by Curtis
 
 - Feature 4 fully completed and working 
 
@@ -61,5 +61,11 @@ Changes needed
 - Along with feature 5 itself all methods for feature 5 working features have been added and labled such as feature 5 menu, sub menu, type, phases and such 
 
 - FEATURE THAT NEED TO BE ADDED IS 10 YEAR PERIOD 
+
+**version 5.0** - Feature 5 now compelete - 20/11/2019 pushed by curtis
+
+- Feature 5 10 year feature now added 
+
+
 
 
