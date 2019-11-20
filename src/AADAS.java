@@ -16,6 +16,7 @@ public class AADAS {
 	public String InvestigationType;
 	public String accidetnNumber;
 	public String EventDate;
+	public static int Eventyear;
 	public String Location;
 	public String Country;
 	public String Latitude;
@@ -135,10 +136,15 @@ public class AADAS {
 	public String getYear() {
 		return EventDate.substring(6, 10);
 	}
+	
+	public int getYearparse() {
+		return Eventyear = Integer.parseInt(getYear());
+		
+	}
 
 	// main method currently contains file reader and basic menu system to be
 	// updated as more work is added
-	public static void main(String[] args) throws FileNotFoundException {
+ 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println(
 				"Welcome to the Air Accident data Analysis System. \nBelow are the available search options: ");
 		menu();
@@ -571,7 +577,8 @@ public class AADAS {
 			case "1":
 				System.out.println("\n-- You have selected 10 year period --\n");
 				System.out.println("-- Below you have a list of all of the crashes recorded --\n");
-			
+				Feature5years(matches);
+				Feature4(crash);
 				break;
 			case "2":
 				System.out.println("\n-- You have selected Phase of flight --\n");
@@ -629,6 +636,33 @@ public class AADAS {
 		System.out.print("Choice:");
 	}
     
+	//FEATURE 5 - 10 YEAR 
+	public static void Feature5years(List<AADAS> crash) {
+		System.out.println("This option will show you all records for the option previously selected in a 10 year window of your choice.");// output message to user
+		
+		year(crash); // call year method
+		System.out.println("Above are the years we have on record, please enter one below and we will show all records from that date to 10 years ahead of that date"); // output message of what will happen
+		System.out.println("choice: "); // prompt
+		String choice = reader.nextLine(); // scanner
+		
+		Eventyear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
+		int tenyear = Eventyear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
+		List<AADAS> matches = new ArrayList<>(); // new array 
+		
+		for(int i = Eventyear; i <= tenyear; i++) { // i = event date and iterate eventdate until it is equal to ten year 
+			for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array 
+				if (c.getYearparse() == i) { // get year parse uses the get year method and parses it to an int for comparison reasons
+					                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
+					matches.add(c); // add to array
+				}
+			}
+			}
+		outputCrashes(matches); // output all crashes in array 
+		System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
+		}
+		
+		
+	
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
 		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
