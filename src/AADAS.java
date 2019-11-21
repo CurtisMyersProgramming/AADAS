@@ -631,32 +631,7 @@ public class AADAS {
 	}
     
 	//FEATURE 5 - 10 YEAR PERIOD
-	public static void Feature5Years(List<AADAS> crash) {
-		Scanner s = new Scanner(System.in);
-		String choice = "";
-		
-		year(crash);
-		System.out.println("Please select a year from the menu above we will then show a 10 year period from that year");
-		System.out.print("Choice: ");
-		choice = s.nextLine();
-		
-		
-		List<AADAS> matches = new ArrayList<>(); // initalise new arraylist called matches
-		int p = 0;
 
-		for (AADAS c : crash) { // reading through inital array list through whole csv
-			if (c.getYear().equals(choice));
-		
-			matches.add(c);
-			p++;
-		
-		}
-		
-		outputCrashes(matches);
-		System.out.println("There are " + p + " crashes in that 10 year time frame that match the option you selected from the previous menu");
-		
-		
-	}
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
 		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
