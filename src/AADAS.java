@@ -645,18 +645,29 @@ public class AADAS {
 		System.out.println("choice: "); // prompt
 		String choice = reader.nextLine(); // scanner
 		
-		Eventyear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
-		int tenyear = Eventyear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
+		int chosenYear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
+		int tenyear = chosenYear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
 		List<AADAS> matches = new ArrayList<>(); // new array 
+
 		
-		for(int i = Eventyear; i <= tenyear; i++) { // i = event date and iterate eventdate until it is equal to ten year 
-			for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array 
-				if (c.getYearparse() == i) { // get year parse uses the get year method and parses it to an int for comparison reasons
+			for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array
+				int year = c.getYearparse();
+				if (year >= chosenYear && year <= tenyear)
+				{ // get year parse uses the get year method and parses it to an int for comparison reasons
 					                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
 					matches.add(c); // add to array
 				}
 			}
-			}
+
+		
+//		for(int i = chosenYear; i <= tenyear; i++) { // i = event date and iterate eventdate until it is equal to ten year 
+//			for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array 
+//				if (c.getYearparse() == i) { // get year parse uses the get year method and parses it to an int for comparison reasons
+//					                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
+//					matches.add(c); // add to array
+//				}
+//			}
+//			}
 		outputCrashes(matches); // output all crashes in array 
 		System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
 		}
