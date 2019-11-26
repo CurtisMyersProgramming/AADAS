@@ -672,7 +672,10 @@ public class AADAS {
 		System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
 		}
 		
-		
+		public static void featureH() {
+			
+			
+		}
 	
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
