@@ -672,11 +672,75 @@ public class AADAS {
 		System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
 		}
 		
+	//FEATURE 6 - Aircraft Make and Type with the highest.. (10 Year Period)
+		public static void Feature6(List<AADAS> crash) throws FileNotFoundException  {
+			Scanner s = new Scanner(System.in); // declare new scanner
+			
+			year(crash);
+			System.out.println("Please specify the year that you would like to view 10 years worth of data from : e.g. 2001, 1978\n");
+
+			String choice = reader.nextLine(); // scanner
+			
+			Eventyear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
+			int tenyear = Eventyear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
+			List<AADAS> matches = new ArrayList<>(); // new array 
+			
+			for(int i = Eventyear; i <= tenyear; i++) { // i = event date and iterate eventdate until it is equal to ten year 
+				for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array 
+					if (c.getYearparse() == i) { // get year parse uses the get year method and parses it to an int for comparison reasons
+						                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
+						matches.add(c); // add to array
+					}
+				}
+				}
+			outputCrashes(matches); // output all crashes in array 
+			System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
+			
+			
+			ArrayList<String> makeModel = new ArrayList<String>();
+			
+			for (int i = 0; i < matches.size(); i++) {
+				AADAS currentCrash = crash.get(i);
+				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
+
+			}
+			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
+			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
+			
+				
+				
+				System.out.println("\nPlease select which option you would like to view: ");
+				System.out.println("[ 1 - View the Highest Accident Rate between "+ choice + " and " + tenyear +" ]");
+				System.out.println("[ 2 - View the Highest Fatality Count between "+ choice + " and " + tenyear +"]");
+				System.out.print("Enter Choice:");
+				choice = s.nextLine().toUpperCase();
+				
+				
+				
+				if (choice.equals("1")) {
+					int c=0;
+					for(Object z: newTreeSet) {
+						for(int i = 0; i <matches.size(); i++) {
+							if( z == matches ) {
+								System.out.println("hi");
+							}
+							
+							
+							
+						}
+					
+					
+					}
+				
+					
+				}
+		}
+				
 		
 	
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
-		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 
@@ -689,6 +753,7 @@ public class AADAS {
 			System.out.println("[ 3 - Phases of Flight                          ]");
 			System.out.println("[ 4 - Specific phase of flight and year         ]");
 			System.out.println("[ 5 - Specifcs of crashes                       ]");
+			System.out.println("[ 6 - Highest Accident/Fatalities               ]");
 			System.out.println("[ Q - Quit                                      ]\n");
 			System.out.print("Enter Choice:");
 			userInput = s.nextLine().toUpperCase();
@@ -722,6 +787,11 @@ public class AADAS {
 				System.out.println("\n-- You have selected Specifcs of crashes --\n");
 				System.out.println("-- Below you have a list of all the specifc records we can provide --");
 				Feature4(crash);
+				break;
+			case "6":
+				System.out.println("\n-- You have selected Highest Accident/Fatalities --\n");
+				System.out.println("-- Below are the options for a specified 10 year period --\n ");
+				Feature6(crash);
 				break;
 			case "Q":
 
