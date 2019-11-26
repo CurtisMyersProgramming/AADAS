@@ -721,6 +721,7 @@ public class AADAS {
 //				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 			}
 			
+			
 
 			System.out.println("FATALITIES!!!!!!!!");
 			int highI = 0;
