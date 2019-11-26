@@ -572,7 +572,7 @@ public class AADAS {
 			userInput = s.nextLine().toUpperCase();
 
 			// Switch statement to allow the user to select which method to load
-			switch (userInput) {
+			switch (u0serInput) {
 
 			case "1":
 				System.out.println("\n-- You have selected 10 year period --\n");
@@ -672,7 +672,14 @@ public class AADAS {
 		System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
 		}
 		
-		public static void featureH() {
+		public static void featureH(List<AADAS>country) {
+			Scanner s = new Scanner(System.in);
+			String inputCountry = "";
+			
+			System.out.println("Please choose a Country");
+			
+			inputCountry = reader.nextLine();
+			
 			
 			
 		}
