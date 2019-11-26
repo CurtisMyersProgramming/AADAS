@@ -698,14 +698,47 @@ public class AADAS {
 			
 			
 			ArrayList<String> makeModel = new ArrayList<String>();
+			ArrayList<Integer> makeModelFatalCount = new ArrayList<Integer>();
 			
 			for (int i = 0; i < matches.size(); i++) {
 				AADAS currentCrash = crash.get(i);
-				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
-
+				String makeModelStr = currentCrash.Make + "" + currentCrash.Model;
+				if (!makeModel.contains(makeModelStr))
+				{
+					makeModelFatalCount.add(0);
+					makeModel.add(makeModelStr);
+				}
+//				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 			}
-			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
-			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
+
+			for (int i = 0; i < matches.size(); i++) {
+				AADAS currentCrash = crash.get(i);
+				String makeModelStr = currentCrash.Make + "" + currentCrash.Model;
+				int index = makeModel.indexOf(makeModelStr);
+				int currentFatal = makeModelFatalCount.get(index);
+				currentFatal+= currentCrash.TotalFatalInjuries;
+				makeModelFatalCount.set(index, currentFatal);
+//				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
+			}
+			
+
+			System.out.println("FATALITIES!!!!!!!!");
+			int highI = 0;
+			for (int i=0; i<makeModel.size(); i++)
+			{
+				System.out.println(makeModel.get(i)+" = fatal "+makeModelFatalCount.get(i));
+				
+				if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
+					highI = i;
+			}
+			
+			System.out.println("MOST FATAL PRIZE TO....");
+			System.out.println(makeModel.get(highI)+" = fatal "+makeModelFatalCount.get(highI));
+			
+			
+			
+//			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
+//			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
 			
 				
 				
@@ -716,31 +749,31 @@ public class AADAS {
 				choice = s.nextLine().toUpperCase();
 				
 				
-				
-				if (choice.equals("1")) {
-					int c=0;
-					for(Object z: newTreeSet) {
-						for(int i = 0; i <matches.size(); i++) {
-							if( z == matches ) {
-								System.out.println("hi");
-							}
-							
-							
-							
-						}
-					
-					
-					}
-				
-					
-				}
+//				
+//				if (choice.equals("1")) {
+//					int c=0;
+//					for(Object z: newTreeSet) {
+//						for(int i = 0; i <matches.size(); i++) {
+//							if( z == matches ) {
+//								
+//							}
+//							
+//							
+//							
+//						}
+//					
+//					
+//					}
+//				
+//					
+//				}
 		}
 				
 		
 	
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
-		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 
