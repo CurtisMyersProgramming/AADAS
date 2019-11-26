@@ -62,10 +62,14 @@ Changes needed
 
 - FEATURE THAT NEED TO BE ADDED IS 10 YEAR PERIOD 
 
-**version 5.0** - Feature 5 now compelete - 20/11/2019 pushed by curtis
+**version 5.0** - Feature 5 now complete - 20/11/2019 pushed by curtis
 
 - Feature 5 10 year feature now added 
 
+**Version 6.0** Highest Accident rate for 10 Year 26/11/2019 pushed by Caolan and Curtis
+Feat 6 highest fatality rate added
+Need accident rate to be added
 
 
+ 
 
