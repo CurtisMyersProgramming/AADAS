@@ -709,7 +709,7 @@ public class AADAS {
 					makeModel.add(makeModelStr);
 				}
 //				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
-			}
+			} 
 
 			for (int i = 0; i < matches.size(); i++) {
 				AADAS currentCrash = crash.get(i);
