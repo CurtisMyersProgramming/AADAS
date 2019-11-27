@@ -724,6 +724,10 @@ public class AADAS {
 			}
 			
 			//loop through the makeModel array and output all makes/models with their fatality count, and highI determines the highest fatality count
+			String option1 = "";
+			System.out.println("Please hit the any key, to output all records of the Aircraft Makes/Models over the 10 year period ");
+			option1 = s.nextLine().toUpperCase();
+			
 			int highI = 0;
 			for (int i=0; i<makeModel.size(); i++)
 			{
@@ -769,7 +773,7 @@ public class AADAS {
 				if (option.equals("1")) {
 					System.out.println("\nThe Aircraft Make and Model with the highest fatality count over the specified 10 year period is:\n");
 					System.out.println("Make/Model = ["+makeModel.get(highI)+"] and the Total Fatalities = ["+makeModelFatalCount.get(highI)+ "] (Between "+ choice + " and " + tenyear+")" );
-					 
+					
 				}
 				else if (option.equals("2")) {
 					System.out.println("\nThe Aircraft Make and Model with the highest Accident rate over the specified 10 year period is:\n");
@@ -778,7 +782,7 @@ public class AADAS {
 				}
 				else if (option.equals("Q")) {
 					System.out.println("-- Returning To Main Menu --" );
-					
+					menu();
 				}
 				else {
 					System.out.println("**Please select a Valid Option**");
