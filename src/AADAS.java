@@ -696,21 +696,23 @@ public class AADAS {
 			outputCrashes(matches); // output all crashes in array 
 			System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
 			
-			
+			//Creating a String ArrayList to store the Make and Model and Integer Arrays to count variables
 			ArrayList<String> makeModel = new ArrayList<String>();
 			ArrayList<Integer> makeModelFatalCount = new ArrayList<Integer>();
+			ArrayList<Integer>makeModelAccidentCount = new ArrayList<Integer>();
 			
+			//for loop to iterate through the matches array
 			for (int i = 0; i < matches.size(); i++) {
 				AADAS currentCrash = crash.get(i);
-				String makeModelStr = currentCrash.Make + "" + currentCrash.Model;
-				if (!makeModel.contains(makeModelStr))
+				String makeModelStr = currentCrash.Make + "" + currentCrash.Model; //Concatenating the make and model variables
+				if (!makeModel.contains(makeModelStr)) //if the makeModel array contains the above string then add the string to make model and add 0 to both arrays for later counting
 				{
 					makeModelFatalCount.add(0);
+					makeModelAccidentCount.add(0);
 					makeModel.add(makeModelStr);
 				}
-//				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 			} 
-
+			//loop through matches array the index enable the fatalities to be counted and added to the makeModelFatalCount
 			for (int i = 0; i < matches.size(); i++) {
 				AADAS currentCrash = crash.get(i);
 				String makeModelStr = currentCrash.Make + "" + currentCrash.Model;
@@ -721,67 +723,81 @@ public class AADAS {
 //				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 			}
 			
-			
-
-			System.out.println("FATALITIES!!!!!!!!");
+			//loop through the makeModel array and output all makes/models with their fatality count, and highI determines the highest fatality count
 			int highI = 0;
 			for (int i=0; i<makeModel.size(); i++)
 			{
-				System.out.println(makeModel.get(i)+" = fatal "+makeModelFatalCount.get(i));
-				
+				System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities =  "+makeModelFatalCount.get(i));
 				if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
 					highI = i;
 			}
+			System.out.println("\nThe above records contain all of the aircraft Makes and Models with the fatality count ");
 			
-			System.out.println("MOST FATAL PRIZE TO....");
-			System.out.println(makeModel.get(highI)+" = fatal "+makeModelFatalCount.get(highI));
+			//loop through matches array the index enable the records to be counted and added to the makeModelAccidentCount
+			for (int i = 0; i < matches.size(); i++) {
+				AADAS currentCrash = crash.get(i);
+				String makeModelStr = currentCrash.Make + "" + currentCrash.Model;
+				int index = makeModel.indexOf(makeModelStr);
+				int count = makeModelAccidentCount.get(index);
+				count++;
+				makeModelAccidentCount.set(index, count);
+				}
 			
-			
+			//loop through the makeModel array and output all makes/models with their accident rate, and highI determines the highest accident rate
+			int highR = 0;
+			for (int i=0; i<makeModel.size(); i++)
+			{
+				
+				if (makeModelAccidentCount.get(i) > makeModelAccidentCount.get(highR))
+					highR = i;
+			}
+		
 			
 //			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
 //			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
 			
-				
-				
-				System.out.println("\nPlease select which option you would like to view: ");
+				String option = "";
+				System.out.println("\nPlease select which option you would like to view: \n");
 				System.out.println("[ 1 - View the Highest Accident Rate between "+ choice + " and " + tenyear +" ]");
 				System.out.println("[ 2 - View the Highest Fatality Count between "+ choice + " and " + tenyear +"]");
+				System.out.println("[ Q - Quit to the Main Menu                                                   ]");
 				System.out.print("Enter Choice:");
-				choice = s.nextLine().toUpperCase();
+				option = s.nextLine().toUpperCase();
 				
 				
-//				
-//				if (choice.equals("1")) {
-//					int c=0;
-//					for(Object z: newTreeSet) {
-//						for(int i = 0; i <matches.size(); i++) {
-//							if( z == matches ) {
-//								
-//							}
-//							
-//							
-//							
-//						}
-//					
-//					
-//					}
-//				
-//					
-//				}
+				
+				if (option.equals("1")) {
+					System.out.println("\nThe Aircraft Make and Model with the highest fatality count over the specified 10 year period is:\n");
+					System.out.println("Make/Model = ["+makeModel.get(highI)+"] and the Total Fatalities = ["+makeModelFatalCount.get(highI)+ "] (Between "+ choice + " and " + tenyear+")" );
+					 
+				}
+				else if (option.equals("2")) {
+					System.out.println("\nThe Aircraft Make and Model with the highest Accident rate over the specified 10 year period is:\n");
+					System.out.println("Make/Model = ["+makeModel.get(highR)+"] and the Total Accident Rate = ["+makeModelAccidentCount.get(highR)+ "] (Between "+ choice + " and " + tenyear+")" );
+					
+				}
+				else if (option.equals("Q")) {
+					System.out.println("-- Returning To Main Menu --" );
+					
+				}
+				else {
+					System.out.println("**Please select a Valid Option**");
+				}
+					
 		}
-				
 		
 	
+
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
-		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 
 		// while loop to output menu and read the users input
 		while (!userInput.equals("q")) {
 
-			System.out.println(" \n      -----Menu-----");
+			System.out.println(" \n      		-----Menu-----");
 			System.out.println("[ 1 - All Recorded Crashes                      ]");
 			System.out.println("[ 2 - Event Dates                               ]");
 			System.out.println("[ 3 - Phases of Flight                          ]");
