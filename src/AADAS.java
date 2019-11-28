@@ -9,6 +9,7 @@ import java.util.TreeSet;
 
 public class AADAS {
 
+	
 	public static Scanner reader = new Scanner(System.in); // declaring all strings that will be produced from the csv
 															// file into the array.
 	public final String SEP = (",");
@@ -572,7 +573,7 @@ public class AADAS {
 			userInput = s.nextLine().toUpperCase();
 
 			// Switch statement to allow the user to select which method to load
-			switch (u0serInput) {
+			switch (userInput) {
 
 			case "1":
 				System.out.println("\n-- You have selected 10 year period --\n");
@@ -641,24 +642,24 @@ public class AADAS {
 		System.out.println("This option will show you all records for the option previously selected in a 10 year window of your choice.");// output message to user
 		
 		year(crash); // call year method
-		System.out.println("Above are the years we have on record, please enter one below and we will show all records from that date to 10 years ahead of that date"); // output message of what will happen
-		System.out.println("choice: "); // prompt
-		String choice = reader.nextLine(); // scanner
 		
-		int chosenYear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
-		int tenyear = chosenYear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
-		List<AADAS> matches = new ArrayList<>(); // new array 
+			
+	System.out.println("Above are the years we have on record, please enter one below and we will show all records from that date to 10 years ahead of that date"); // output message of what will happen
+	System.out.println("choice: "); // prompt
+	String choice = reader.nextLine(); // scanner
+	
+	int chosenYear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
+	int tenyear = chosenYear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
+	List<AADAS> matches = new ArrayList<>(); // new array 
 
-		
-			for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array
-				int year = c.getYearparse();
-				if (year >= chosenYear && year <= tenyear)
-				{ // get year parse uses the get year method and parses it to an int for comparison reasons
-					                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
-					matches.add(c); // add to array
-				}
+	
+		for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array
+			int year = c.getYearparse();
+			if (year >= chosenYear && year <= tenyear)
+			{ // get year parse uses the get year method and parses it to an int for comparison reasons
+				                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
+				matches.add(c); // add to array
 			}
-
 		
 //		for(int i = chosenYear; i <= tenyear; i++) { // i = event date and iterate eventdate until it is equal to ten year 
 //			for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array 
@@ -671,18 +672,78 @@ public class AADAS {
 		outputCrashes(matches); // output all crashes in array 
 		System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
 		}
-		
-		public static void featureH(List<AADAS>country) {
-			Scanner s = new Scanner(System.in);
-			String inputCountry = "";
-			
-			System.out.println("Please choose a Country");
-			
-			inputCountry = reader.nextLine();
-			
-			
-			
+	}
+
+	//FEATURE 6 - COUNTRY 
+	public static void Feature6country(List<AADAS> crash) throws FileNotFoundException{
+		int p = 0; // initialised int p for counter later of how many phases are read through to
+		// display
+		ArrayList<String> Country = new ArrayList<String>(); // new arraylist called phases
+		for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
+			AADAS currentCrash = crash.get(i); // populating array with lines
+			Country.add(currentCrash.Country);
 		}
+
+		TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
+		newTreeSet.addAll(Country); // adding all data from phases array to tree set (ordered set)
+		for (Object s : newTreeSet) // reading through tree set
+			System.out.println(s); // output phases in order
+		for (int y = 0; y < newTreeSet.size(); y++) { // for loop which calculates how many times new tree size loops
+											// and prints
+			p++; // +1 every loop meaning that outcome will be amount of phases printed
+		}
+	}
+			
+	//FEATURE 6 - FEATURE H		
+	public static void featureH(List<AADAS>crash) throws FileNotFoundException {
+		Scanner s = new Scanner(System.in);
+		// new array 
+		List<AADAS> matches = new ArrayList<>(); // new array 
+		String inputCountry = "";
+		String year = "";
+		Feature6country(crash);
+		System.out.println("Please choose a Country");
+		
+		inputCountry = reader.nextLine();
+	
+			for(AADAS c : crash) {
+			if(inputCountry.equals(c.Country)) {
+				matches.add(c);
+			}
+			}
+			
+			
+		
+		year(crash);
+		System.out.println("Above are the years we have on record, please enter one below and we will show all records from that date to 10 years ahead of that date"); // output message of what will happen
+		System.out.println("choice: "); // prompt
+		String choice = reader.nextLine(); // scanner
+		
+		int chosenYear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
+		int tenyear = chosenYear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
+		List<AADAS> matched = new ArrayList<>(); // new array 
+
+		
+			/*for(AADAS c : matches) { // each loop of eventdate (2001, 2002, 2003....) run the whole array
+				int years = c.getYearparse();
+				if (years >= chosenYear && years <= tenyear)
+				{ // get year parse uses the get year method and parses it to an int for comparison reasons
+					                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
+					matched.add(c); // add to array
+				}
+			}*/
+			
+
+			for(int i = chosenYear; i <= tenyear; i++) { // i = event date and iterate eventdate until it is equal to ten year 
+			for(AADAS c : matches) { // each loop of eventdate (2001, 2002, 2003....) run the whole array 
+					if (c.getYearparse() == i) { // get year parse uses the get year method and parses it to an int for comparison reasons
+					                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
+					matched.add(c); // add to array
+				}
+			}
+			}
+			outputCrashes(matched);
+	}
 	
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
@@ -699,6 +760,7 @@ public class AADAS {
 			System.out.println("[ 3 - Phases of Flight                          ]");
 			System.out.println("[ 4 - Specific phase of flight and year         ]");
 			System.out.println("[ 5 - Specifcs of crashes                       ]");
+			System.out.println("[ 6 - Country of Crashes                        ]");
 			System.out.println("[ Q - Quit                                      ]\n");
 			System.out.print("Enter Choice:");
 			userInput = s.nextLine().toUpperCase();
@@ -733,6 +795,12 @@ public class AADAS {
 				System.out.println("-- Below you have a list of all the specifc records we can provide --");
 				Feature4(crash);
 				break;
+			case "6":
+				System.out.println("\n-- You have selected Crashes within countries--\n");
+				System.out.println("-- Below you have a list of all the specifc records we can provide --");
+				featureH(crash);
+			break;
+			
 			case "Q":
 
 				Scanner sure = new Scanner(System.in);
