@@ -705,9 +705,10 @@ public class AADAS {
 		System.out.println("Please choose a Country");
 		
 		inputCountry = reader.nextLine();
+		String Country = inputCountry.substring(0, 1).toUpperCase() + inputCountry.substring(1);
 	
 			for(AADAS c : crash) {
-			if(inputCountry.equals(c.Country)) {
+			if(Country.equals(c.Country)) {
 				matches.add(c);
 			}
 			}
