@@ -702,7 +702,8 @@ public class AADAS {
 		String inputCountry = "";
 		String year = "";
 		Feature6country(crash);
-		System.out.println("Please choose a Country");
+		System.out.println("Please choose a Country by typing the name exactly as seen above");
+		System.out.print("Choice: ");
 		
 		inputCountry = reader.nextLine();
 		String Country = inputCountry.substring(0, 1).toUpperCase() + inputCountry.substring(1);
@@ -711,6 +712,11 @@ public class AADAS {
 			if(Country.equals(c.Country)) {
 				matches.add(c);
 			}
+			}
+			
+			while(matches.size() == 0) {
+				System.out.println("No records found for that country check spelling or make sure the country is on the list");
+				menu();
 			}
 			
 			
