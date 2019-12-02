@@ -16,13 +16,7 @@ Changes needed
 
 **Version 1.1** - Feature Menu Update 22/10/2019 - pushed by Caolan
 
-
-Changes needed
-
-- better menu system with features for options (priority)
-- feature 3 to be added to AADAS - Air Accident Data Analysis System 
-
-- New Switch Case menu that calls different methods
+ Switch case menu made to eanable each feature to be called
 
 **Version 1.2** - Menu Update 22/10/2019 - pushed by Curtis
 
@@ -62,10 +56,20 @@ Changes needed
 
 - FEATURE THAT NEED TO BE ADDED IS 10 YEAR PERIOD 
 
-**version 5.0** - Feature 5 now compelete - 20/11/2019 pushed by curtis
+**version 5.0** - Feature 5 now complete - 20/11/2019 pushed by curtis
 
 - Feature 5 10 year feature now added 
 
+**Version 6.0** Highest Accident rate for 10 Year 26/11/2019 pushed by Caolan and Curtis
 
+- Feature 6 lets user select a 10 year period and determine the highest fatality and accident count for the aircraft make and model
+- Highest fatality rate added to output the make and model with the highest accumulative fatalities
 
+**Version 6.1**  27/11/2019 pushed by Caolan 
+
+- Accident Rate to output the amount of times the highest re-occurring aircraft make and model has crashed within the specified period
+
+- If statement should loop back to the previous menu instead of continuing to the main menu which should only be accessed with the quit option
+
+ 
 
