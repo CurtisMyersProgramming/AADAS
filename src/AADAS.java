@@ -841,7 +841,7 @@ public class AADAS {
 		List<AADAS> matches = new ArrayList<>(); // new array 
 		String inputCountry = "";
 		String choice = "";
-    year(crash);
+		year(crash);
 		System.out.println("Above are the years we have on record, please enter one below and we will show all records from that date to 10 years ahead of that date"); // output message of what will happen
 		System.out.println("choice: "); // prompt
 	  choice = reader.nextLine(); // scanner
@@ -851,17 +851,26 @@ public class AADAS {
 		
 		inputCountry = reader.nextLine();
 		String Country = inputCountry.substring(0, 1).toUpperCase() + inputCountry.substring(1);
+		int chosenYear = Integer.parseInt(choice); // INT event year = user choice but parses to an int
+		int tenyear = chosenYear + 10; // int ten year is event date + 10 to give us a stop point 10 years in the future
 	
 			for(AADAS c : crash) {
 			if(Country.equals(c.Country)) {
-				matches.add(c);
+				int year = c.getYearparse();
+				if (year >= chosenYear && year <= tenyear) {
+					matches.add(c);
+				}
+				
 			}
 			}
+			outputCrashes(matches);
+			menu();
 			
 			while(matches.size() == 0) {
 				System.out.println("No records found for that country check spelling or make sure the country is on the list");
 				menu();
 			}
+	}
 			
 			
 		
@@ -875,7 +884,7 @@ public class AADAS {
 
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
-		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 

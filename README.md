@@ -60,16 +60,22 @@ Changes needed
 
 - Feature 5 10 year feature now added 
 
-**Version 6.0** Highest Accident rate for 10 Year 26/11/2019 pushed by Caolan and Curtis
+**Version 6.0** - Highest Accident rate for 10 Year 26/11/2019 pushed by Caolan and Curtis
 
 - Feature 6 lets user select a 10 year period and determine the highest fatality and accident count for the aircraft make and model
 - Highest fatality rate added to output the make and model with the highest accumulative fatalities
 
-**Version 6.1**  27/11/2019 pushed by Caolan 
+**Version 6.1** - 27/11/2019 pushed by Caolan 
 
 - Accident Rate to output the amount of times the highest re-occurring aircraft make and model has crashed within the specified period
 
 - If statement should loop back to the previous menu instead of continuing to the main menu which should only be accessed with the quit option
+
+**Version 7.0**  02/12/2019 pushed by Curtis and Connor
+
+ - Added custom feature to show user selected country accidents in 10 year period (menu needs fixing)
+ - fixed src issue
+ 
 
  
 
