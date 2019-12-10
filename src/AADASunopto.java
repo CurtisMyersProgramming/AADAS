@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -46,7 +47,7 @@ public class AADASunopto {
 	public String ReportStatus;
 	public String PublicationDate;
 
-	public AADAS(String csvString) { // reading the strings into an array
+	public AADASunopto(String csvString) { // reading the strings into an array
 		String[] csvParts = parseCSV(csvString); // csvString.split(SEP, -1);
 		int i = 0;
 		Eventid = csvParts[i++];
@@ -143,6 +144,9 @@ public class AADASunopto {
 		
 	}
 
+	
+	
+	
 	// main method currently contains file reader and basic menu system to be
 	// updated as more work is added
  	public static void main(String[] args) throws FileNotFoundException {
@@ -182,50 +186,60 @@ public class AADASunopto {
 
 	}
 
-	// FEATURE 1 - OUTPUT ALL YEARS
+	
+	// FEATURE 1 - OUTPUT ALL YEARS - UNOPTOMIZED DONE
 	public static void year(List<AADAS> crash) { // DECLARE PUBLIC CLASS
-		int j = 0; // initialised int j for counter later of how many years are read through to
-					// display
+	
+		ArrayList<String> yearslisted = new ArrayList<String>();
 		ArrayList<String> years = new ArrayList<String>(); // new arraylist called years
 		for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
 			AADAS currentCrash = crash.get(i); // populating array with lines
 			years.add(currentCrash.getYear()); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
-
+            String yearsinarray = currentCrash.getYear();
+            if (!yearslisted.contains(yearsinarray))
+            {
+            	yearslisted.add(yearsinarray);
+            }
+			
 		}
-		TreeSet<String> myTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
-		myTreeSet.addAll(years); // adding all data from years array (all dates) to tree set (ordered set)
-		for (Object s : myTreeSet) // reading through tree set
-			System.out.println(s); // output dates in order
-		for (int y = 0; y < myTreeSet.size(); y++) { // for loop which calculates how many times my tree size loops and
-														// prints
-			j++; // +1 every loop meaning that outcome will be amount of years printed
 
-		}
-		System.out.println("\nThere are " + j + " years of data available"); // prints how many years of data are shown
-																				// from treeset
+		 Collections.sort(yearslisted);
+
+		   /* Sorted List*/
+		  
+		   for(String counter: yearslisted){
+				System.out.println(counter);
+			}
 	}
-
-	// FEATURE 2 - OUTPUT PHASES OF FLGHT
+		
+	// FEATURE 2 - OUTPUT PHASES OF FLGHT - UNOPTOMIZED DONE
 	public static void flightPhase(List<AADAS> crash) {
-		int p = 0; // initialised int p for counter later of how many phases are read through to
-					// display
-		ArrayList<String> phases = new ArrayList<String>(); // new arraylist called phases
-		for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
-			AADAS currentCrash = crash.get(i); // populating array with lines
-			phases.add(currentCrash.BroadPhaseofFlight);
-		}
-
-		TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
-		newTreeSet.addAll(phases); // adding all data from phases array to tree set (ordered set)
-		for (Object s : newTreeSet) // reading through tree set
-			System.out.println(s); // output phases in order
-		for (int y = 0; y < newTreeSet.size(); y++) { // for loop which calculates how many times new tree size loops
-														// and prints
-			p++; // +1 every loop meaning that outcome will be amount of phases printed
-		}
+	
+	
+	ArrayList<String> phaseslisted = new ArrayList<String>();
+	ArrayList<String> phases = new ArrayList<String>(); // new arraylist called years
+	for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
+		AADAS currentCrash = crash.get(i); // populating array with lines
+		phases.add(currentCrash.BroadPhaseofFlight); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
+        String phasesinarray = currentCrash.BroadPhaseofFlight;
+        if (!phaseslisted.contains(phasesinarray))
+        {
+        	phaseslisted.add(phasesinarray);
+        }
+		
 	}
 
-	// FEATURE 3 - OUTPUT SPECIFIC PHASE OF FLIGHT AND YEAR DATA
+	for (int i=0; i<phaseslisted.size(); i++)
+	{
+		System.out.println(phaseslisted.get(i));
+	}
+	
+	
+	System.out.println("\nThere are " + phaseslisted.size() + " phases of flight stages available"); // prints how many years of data are shown
+																			// from treeset
+}
+
+	// FEATURE 3 - OUTPUT SPECIFIC PHASE OF FLIGHT AND YEAR DATA - UNOPTOMIZED DONE
 	public static void Feature3(List<AADAS> crash) {
 
 		Scanner s = new Scanner(System.in); // declare new scanner
@@ -266,7 +280,7 @@ public class AADASunopto {
 
 	}
 
-	// FEATURE 4 - OUTPUT SPECIFIC OPTIONS FROM MENU
+	// FEATURE 4 - OUTPUT SPECIFIC OPTIONS FROM MENU - UNOPTOMIZED DONE
 	public static void Feature4(List<AADAS> crash) throws FileNotFoundException {
 
 		Scanner s = new Scanner(System.in);
@@ -416,7 +430,7 @@ public class AADASunopto {
 
 	}
 
-	// FEATURE 5 - PHASE OF FLIGHT 
+	// FEATURE 5 - PHASE OF FLIGHT  - UNOPTOMIZED DONE
 	public static void Feature5phase(List<AADAS> crash) throws FileNotFoundException{
 		Scanner s = new Scanner(System.in); // declare new scanner
 		String inputflight = ""; // declare input for flight
@@ -457,20 +471,20 @@ public class AADASunopto {
 	public static void Featre5Aircraft(List<AADAS> crash) throws FileNotFoundException{
 		int p = 0; // initialised int p for counter later of how many phases are read through to
 		// display
+		ArrayList<String> aircraftlisted = new ArrayList<String>();
 		ArrayList<String> aircraft = new ArrayList<String>(); // new arraylist called phases
 		for (int i = 0; i < crash.size(); i++) { // reading through inital array list through whole csv
 			AADAS currentCrash = crash.get(i); // populating array with lines
 			aircraft.add(currentCrash.AirCarrier);
+	    String aircraftarray = currentCrash.BroadPhaseofFlight;
+		        if (!aircraftlisted.contains(aircraftarray))
+		        {
+		        	aircraftlisted.add(aircraftarray);
+		        }
 		}
 
-		TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
-		newTreeSet.addAll(aircraft); // adding all data from phases array to tree set (ordered set)
-		for (Object s : newTreeSet) // reading through tree set
-			System.out.println(s); // output phases in order
-		for (int y = 0; y < newTreeSet.size(); y++) { // for loop which calculates how many times new tree size loops
-											// and prints
-			p++; // +1 every loop meaning that outcome will be amount of phases printed
-		}
+		System.out.println("\nThere are " + aircraftlisted.size() + "aircraft type available");
+		
 	}
 	
 	//FEATURE 5 - MAKE 
@@ -529,7 +543,7 @@ public class AADASunopto {
 
 		System.out.println("\nPlease specify the model you would like to view the options are:\n"); // print prompt for
 																									// years
-		Featre5type(crash); // method to print years
+		year(crash); // method to print years
 		System.out.println("\nYear selection: "); // prompt for year input
 		inputtype = s.nextLine(); // take year input
 
