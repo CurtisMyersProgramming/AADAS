@@ -2,8 +2,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -672,9 +677,6 @@ public class AADAS {
 		}
 	}
   
-  
-  
-
 	//FEATURE 6 - COUNTRY 
 	public static void Feature6country(List<AADAS> crash) throws FileNotFoundException{
 		int p = 0; // initialised int p for counter later of how many phases are read through to
@@ -720,9 +722,11 @@ public class AADAS {
 			System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear +"\n"); // output letting user know how records match 
 			
 			//Creating a String ArrayList to store the Make and Model and Integer Arrays to count variables
-			ArrayList<String> makeModel = new ArrayList<String>();
-			ArrayList<Integer> makeModelFatalCount = new ArrayList<Integer>();
+			ArrayList<String>  makeModel = new ArrayList<String>();
+			ArrayList<Integer> makeModelFatalCount = new ArrayList <Integer>();
 			ArrayList<Integer>makeModelAccidentCount = new ArrayList<Integer>();
+			HashMap<String,Integer>fatal=new HashMap<String, Integer>();
+			HashMap<String,Integer>accident=new HashMap<String, Integer>();
 			
 			//for loop to iterate through the matches array
 			for (int i = 0; i < matches.size(); i++) {
@@ -733,9 +737,10 @@ public class AADAS {
 					makeModelFatalCount.add(0);
 					makeModelAccidentCount.add(0);
 					makeModel.add(makeModelStr);
+
 				}
-			} 
-			//loop through matches array the index enable the fatalities to be counted and added to the makeModelFatalCount
+			}
+			
 			for (int i = 0; i < matches.size(); i++) {
 				AADAS currentCrash = crash.get(i);
 				String makeModelStr = currentCrash.Make + " " + currentCrash.Model;
@@ -743,20 +748,9 @@ public class AADAS {
 				int currentFatal = makeModelFatalCount.get(index);
 				currentFatal+= currentCrash.TotalFatalInjuries;
 				makeModelFatalCount.set(index, currentFatal);
-//				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
+				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
+				fatal.put(makeModelStr, currentCrash.TotalFatalInjuries);
 			}
-			
-			//loop through the makeModel array and output all makes/models with their fatality count, and highI determines the highest fatality count
-			String option1 = "";
-			System.out.println("Please hit the Enter key, to output all records of the Aircraft Makes/Models over the 10 year period ");
-			option1 = s.nextLine().toUpperCase();
-			
-			int highI = 0;
-			for (int i=0; i<makeModel.size(); i++)
-			{
-				System.out.println("Make/Model = " +makeModel.get(i));
-			}
-			System.out.println("\nThe above records contain all of the aircraft Makes and Models with the fatality count ");
 			
 			//loop through matches array the index enable the records to be counted and added to the makeModelAccidentCount
 			for (int i = 0; i < matches.size(); i++) {
@@ -766,23 +760,9 @@ public class AADAS {
 				int count = makeModelAccidentCount.get(index);
 				count++;
 				makeModelAccidentCount.set(index, count);
+				accident.put(makeModelStr, count);
 				}
-			
-			//loop through the makeModel array and output all makes/models with their accident rate, and highI determines the highest accident rate
-			int highR = 0;
-			for (int i=0; i<makeModel.size(); i++)
-			{
-				
-				if (makeModelAccidentCount.get(i) > makeModelAccidentCount.get(highR)) {
-					
-					highR = i;
-			}
-				}
-		
-			
-//			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
-//			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
-			
+
 				String option = "";
 				System.out.println("\nPlease select which option you would like to view: \n");
 				System.out.println("[ 1 - View the Highest Accident Rate between "+ choice + " and " + tenyear +" ]");
@@ -791,48 +771,48 @@ public class AADAS {
 				System.out.print("Enter Choice:");
 				option = s.nextLine().toUpperCase();
 				
-				
-				
+			
+				 String option1 = "";
 				if (option.equals("1")) {
 					
-					for (int i=0; i<makeModel.size(); i++)
-					{
-						System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities =  "+makeModelFatalCount.get(i));
-						if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
-							highI = i;
-					}
-					System.out.println("\nThe Aircraft Make and Model with the highest fatality count over the specified 10 year period is:\n");
-					System.out.println("Make/Model = ["+makeModel.get(highI)+"] and the Total Fatalities = ["+makeModelFatalCount.get(highI)+ "] (Between "+ choice + " and " + tenyear+")" );
-					System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
-					option1 = s.nextLine().toUpperCase();
-					if(option1.equals("Q")) {
-						menu();
-					}
-					else {
-					Feature6(crash);
-				}
-					}
-				else if (option.equals("2")) {
-					System.out.println("\nThe Aircraft Make and Model with the highest Accident rate over the specified 10 year period is:\n");
-					System.out.println("Make/Model = ["+makeModel.get(highR)+"] and the Total Accident Rate = ["+makeModelAccidentCount.get(highR)+ "] (Between "+ choice + " and " + tenyear+")" );
-					System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
-					option1 = s.nextLine().toUpperCase();
-					if(option1.equals("Q")) {
-						menu();
-					}
-					else {
-					Feature6(crash);
-				}
-				}
-				else if (option.equals("Q")) {
-					System.out.println("-- Returning To Main Menu --" );
-					menu();
-				}
-				else {
-					System.out.println("**Please select a Valid Option**");
-				}
 					
-		}
+					Collections.max(fatal.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+					 int maxValueInMap=(Collections.max(fatal.values()));  // This will return max value in the Hashmap
+					 System.out.println("This is the Make and Model with the highest Fatality Count:\n");
+					 for (Map.Entry<String, Integer> entry : fatal.entrySet()) {  // Itrate through hashmap
+				            if (entry.getValue()==maxValueInMap) {
+				            
+				                System.out.println("The Make/Model with the highest accident rate is ["+entry.getKey() +"] and the total fatalities is ["+ entry.getValue()+"]");     // Print the key with max value
+				            }}
+					
+					 option1 = s.nextLine().toUpperCase();
+						if(option1.equals("Q")) {
+							menu();
+						}
+						else {
+						Feature6(crash);
+				        }}
+//					
+				else if (option.equals("2")) {
+					
+					
+					Collections.max(accident.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+					 int maxValueInMap=(Collections.max(accident.values()));  // This will return max value in the Hashmap
+					 System.out.println("This is the Make and Model with the highest Accident Rate:\n");
+					 for (Map.Entry<String, Integer> entry : accident.entrySet()) {  // Itrate through hashmap
+				            if (entry.getValue()==maxValueInMap) {
+				        
+				                System.out.println("The Make/Model with the highest accident rate is ["+entry.getKey() +"] and the total fatalities is ["+ entry.getValue()+"]");     // Print the key with max value
+				            }}
+					 option1 = s.nextLine().toUpperCase();
+						if(option1.equals("Q")) {
+							menu();
+						}
+						else {
+						Feature6(crash);
+				        }}
+				        }
+			
 			
 	//FEATURE 9 - Custom Feature 10 year country 
 	public static void featureH(List<AADAS>crash) throws FileNotFoundException {
@@ -872,19 +852,9 @@ public class AADAS {
 			}
 	}
 			
-			
-		
-
-
-
-
-		
-		
-	
-
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
-		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 
