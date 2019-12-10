@@ -687,8 +687,6 @@ public class AADASunopto {
 	}
   
   
-  
-
 	//FEATURE 6 - COUNTRY 
 	public static void Feature6country(List<AADAS> crash) throws FileNotFoundException{
 		int p = 0; // initialised int p for counter later of how many phases are read through to
@@ -760,17 +758,12 @@ public class AADASunopto {
 //				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 			}
 			
-			//loop through the makeModel array and output all makes/models with their fatality count, and highI determines the highest fatality count
 			String option1 = "";
-			System.out.println("Please hit the Enter key, to output all records of the Aircraft Makes/Models over the 10 year period ");
-			option1 = s.nextLine().toUpperCase();
+
 			
 			int highI = 0;
-			for (int i=0; i<makeModel.size(); i++)
-			{
-				System.out.println("Make/Model = " +makeModel.get(i));
-			}
-			System.out.println("\nThe above records contain all of the aircraft Makes and Models with the fatality count ");
+
+			
 			
 			//loop through matches array the index enable the records to be counted and added to the makeModelAccidentCount
 			for (int i = 0; i < matches.size(); i++) {
@@ -783,35 +776,29 @@ public class AADASunopto {
 				}
 			
 			//loop through the makeModel array and output all makes/models with their accident rate, and highI determines the highest accident rate
-			int highR = 0;
-			for (int i=0; i<makeModel.size(); i++)
-			{
-				
-				if (makeModelAccidentCount.get(i) > makeModelAccidentCount.get(highR)) {
-					
-					highR = i;
-			}
-				}
+			
 		
 			
 //			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
 //			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
-			
+			int highR = 0;
 				String option = "";
 				System.out.println("\nPlease select which option you would like to view: \n");
 				System.out.println("[ 1 - View the Highest Accident Rate between "+ choice + " and " + tenyear +" ]");
 				System.out.println("[ 2 - View the Highest Fatality Count between "+ choice + " and " + tenyear +"]");
+				System.out.println("[ 3 - View the Highest Fatality Count in Reverse between "+ choice + " and " + tenyear +"]");
+				System.out.println("[ 4 - View the Highest Accident Rates in Reverse between "+ choice + " and " + tenyear +"]");
 				System.out.println("[ Q - Quit to the Main Menu                                            ]");
 				System.out.print("Enter Choice:");
 				option = s.nextLine().toUpperCase();
 				
 				
 				
-				if (option.equals("1")) {
+				if (option.equals("2")) {
 					
 					for (int i=0; i<makeModel.size(); i++)
 					{
-						System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities =  "+makeModelFatalCount.get(i));
+					//	System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities =  "+makeModelFatalCount.get(i));
 						if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
 							highI = i;
 					}
@@ -826,7 +813,15 @@ public class AADASunopto {
 					Feature6(crash);
 				}
 					}
-				else if (option.equals("2")) {
+				else if (option.equals("1")) {
+					
+					for (int i=0; i<makeModel.size(); i++)
+					{
+						if (makeModelAccidentCount.get(i) > makeModelAccidentCount.get(highR)) {
+							
+							highR = i;
+					}
+						}
 					System.out.println("\nThe Aircraft Make and Model with the highest Accident rate over the specified 10 year period is:\n");
 					System.out.println("Make/Model = ["+makeModel.get(highR)+"] and the Total Accident Rate = ["+makeModelAccidentCount.get(highR)+ "] (Between "+ choice + " and " + tenyear+")" );
 					System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
@@ -837,14 +832,62 @@ public class AADASunopto {
 					else {
 					Feature6(crash);
 				}
+					}
+					else if (option.equals("3")) {
+						
+						for (int i=0; i<makeModel.size(); i++)
+						{
+		
+							
+							System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities =  "+makeModelFatalCount.get(i));
+							if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
+								highI = i;
+							
+						}
+						System.out.println("\nThe Aircraft Make and Models are listed below in decending order by Higest fatality count first.:\n");
+					
+				System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
+				option1 = s.nextLine().toUpperCase();
+				if(option1.equals("Q")) {
+					menu();
 				}
+				else {
+				Feature6(crash);
+			}}
+					else if (option.equals("4")) {
+	
+						for (int i=0; i<makeModel.size(); i++)
+						{
+							if (makeModelAccidentCount.get(i) > makeModelAccidentCount.get(highR))
+								highR = i;
+						
+							
+							System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Accidents =  "+makeModelAccidentCount.get(i));
+							
+							}
+						System.out.println("Make/Model = ["+makeModel.get(highR)+"] and the Total Accident Rate = ["+makeModelAccidentCount.get(highR)+ "] (Between "+ choice + " and " + tenyear+")" );
+
+							System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
+							option1 = s.nextLine().toUpperCase();
+							if(option1.equals("Q")) {
+								menu();
+							}
+							else {
+							Feature6(crash);
+						}
+						}
+					
+						
+						
 				else if (option.equals("Q")) {
 					System.out.println("-- Returning To Main Menu --" );
 					menu();
 				}
+				
 				else {
 					System.out.println("**Please select a Valid Option**");
 				}
+				
 					
 		}
 			
@@ -886,19 +929,11 @@ public class AADASunopto {
 			}
 	}
 			
-			
 		
-
-
-
-
-		
-		
-	
 
 	// SYSTEM MAIN MENU 
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
-		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 
