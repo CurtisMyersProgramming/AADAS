@@ -38,7 +38,7 @@ public class AADASunopto {
 	public String Schedule;
 	public String PurposeOfFlight;
 	public String AirCarrier;
-	public int TotalFatalInjuries;
+	public int TotalFatalInjuries; 
 	public int TotalSeriousInjuries;
 	public int TotalMinorInjuries;
 	public int TotalUninjured;
