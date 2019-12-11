@@ -76,6 +76,10 @@ Changes needed
  - Added custom feature to show user selected country accidents in 10 year period (menu needs fixing)
  - fixed src issue
  
+ **Version 8.0**  11/12/2019 pushed by Curtis and Caolan
+ 
+ - Feature g added into submenu of AADAS feature 6 
+ - currently works but not producing correct records which needs to be fixed 
 
  
 

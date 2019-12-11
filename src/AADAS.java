@@ -2,9 +2,17 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class AADAS {
@@ -143,7 +151,77 @@ public class AADAS {
 		
 	}
 
-	// main method currently contains file reader and basic menu system to be
+	public static <K, V> void printMap(Map<K, V> map) {
+	        for (Map.Entry<K, V> entry : map.entrySet()) {
+	            System.out.println("Key : " + entry.getKey() 
+					+ " Value : " + entry.getValue());
+	        }
+	 }
+	
+	private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap) {
+		// 1. Convert Map to List of Map
+	        List<Map.Entry<String, Integer>> list =
+	                new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
+
+	        // 2. Sort list with Collections.sort(), provide a custom Comparator
+	        //    Try switch the o1 o2 position for a different order
+	        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+	            public int compare(Map.Entry<String, Integer> o1,
+	                               Map.Entry<String, Integer> o2) {
+	                return (o1.getValue()).compareTo(o2.getValue());
+	            }
+	        });
+
+	        // 3. Loop the sorted list and put it into a new insertion order Map LinkedHashMap
+	        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+	        for (Map.Entry<String, Integer> entry : list) {
+	            sortedMap.put(entry.getKey(), entry.getValue());
+	        }
+
+	        /*
+	        //classic iterator example
+	        for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext(); ) {
+	            Map.Entry<String, Integer> entry = it.next();
+	            sortedMap.put(entry.getKey(), entry.getValue());
+	        }*/
+
+
+	        return sortedMap;
+	    }
+
+	 private static Map<String, Integer> sortByValuedesc(Map<String, Integer> unsortMap) {
+			// 1. Convert Map to List of Map
+		        List<Map.Entry<String, Integer>> list =
+		                new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
+
+		        // 2. Sort list with Collections.sort(), provide a custom Comparator
+		        //    Try switch the o1 o2 position for a different order
+		        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+		            public int compare(Map.Entry<String, Integer> o1,
+		                               Map.Entry<String, Integer> o2) {
+		            	return (o2.getValue()).compareTo(o1.getValue());
+		            }
+		        });
+
+		        // 3. Loop the sorted list and put it into a new insertion order Map LinkedHashMap
+		        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+		        for (Map.Entry<String, Integer> entry : list) {
+		            sortedMap.put(entry.getKey(), entry.getValue());
+		        }
+
+		        /*
+		        //classic iterator example
+		        for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext(); ) {
+		            Map.Entry<String, Integer> entry = it.next();
+		            sortedMap.put(entry.getKey(), entry.getValue());
+		        }*/
+
+
+		        return sortedMap;
+		    }
+	
+	
+	 // main method currently contains file reader and basic menu system to be
 	// updated as more work is added
  	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println(
@@ -716,13 +794,15 @@ public class AADAS {
 					}
 				}
 				}
-			//outputCrashes(matches); // output all crashes in array 
-			System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear +"\n"); // output letting user know how records match 
+		
+			
 			
 			//Creating a String ArrayList to store the Make and Model and Integer Arrays to count variables
 			ArrayList<String> makeModel = new ArrayList<String>();
 			ArrayList<Integer> makeModelFatalCount = new ArrayList<Integer>();
 			ArrayList<Integer>makeModelAccidentCount = new ArrayList<Integer>();
+			Map<String, Integer> highestaccident = new HashMap<String, Integer>();// Map  for accident count
+			Map<String, Integer> highestfatality = new HashMap<String, Integer>();// map for fatality count
 			
 			//for loop to iterate through the matches array
 			for (int i = 0; i < matches.size(); i++) {
@@ -746,19 +826,6 @@ public class AADAS {
 //				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 			}
 			
-			//loop through the makeModel array and output all makes/models with their fatality count, and highI determines the highest fatality count
-			String option1 = "";
-			System.out.println("Please hit the Enter key, to output all records of the Aircraft Makes/Models over the 10 year period ");
-			option1 = s.nextLine().toUpperCase();
-			
-			int highI = 0;
-			for (int i=0; i<makeModel.size(); i++)
-			{
-				System.out.println("Make/Model = " +makeModel.get(i));
-			}
-			System.out.println("\nThe above records contain all of the aircraft Makes and Models with the fatality count ");
-			
-			//loop through matches array the index enable the records to be counted and added to the makeModelAccidentCount
 			for (int i = 0; i < matches.size(); i++) {
 				AADAS currentCrash = crash.get(i);
 				String makeModelStr = currentCrash.Make + " " + currentCrash.Model;
@@ -768,26 +835,36 @@ public class AADAS {
 				makeModelAccidentCount.set(index, count);
 				}
 			
-			//loop through the makeModel array and output all makes/models with their accident rate, and highI determines the highest accident rate
-			int highR = 0;
-			for (int i=0; i<makeModel.size(); i++)
-			{
+			for (int i =0; i < matches.size(); i++) {
+				AADAS currentCrash = crash.get(i);
+				String makeModelStr = currentCrash.Make + " " + currentCrash.Model;
 				
-				if (makeModelAccidentCount.get(i) > makeModelAccidentCount.get(highR)) {
-					
-					highR = i;
+				int index = makeModel.indexOf(makeModelStr);
+				int currentaccident = makeModelFatalCount.get(index);
+				highestaccident.put(makeModelStr, currentaccident);
+				i++;
 			}
-				}
+			for (int i =0; i < matches.size(); i++) {
+				AADAS currentCrash = crash.get(i);
+				String makeModelStr = currentCrash.Make + " " + currentCrash.Model;
+				
+				int index = makeModel.indexOf(makeModelStr);
+				int currentFatal = makeModelFatalCount.get(index);
+				highestfatality.put(makeModelStr, currentFatal);
+				i++;
+			}
+			
+			//loop through the makeModel array and output all makes/models with their fatality count, and highI determines the highest fatality count
+			
+			
 		
-			
-//			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
-//			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
-			
-				String option = "";
-				System.out.println("\nPlease select which option you would like to view: \n");
-				System.out.println("[ 1 - View the Highest Accident Rate between "+ choice + " and " + tenyear +" ]");
-				System.out.println("[ 2 - View the Highest Fatality Count between "+ choice + " and " + tenyear +"]");
-				System.out.println("[ Q - Quit to the Main Menu                                            ]");
+		String option = "";
+				System.out.println("Please select which option you would like to view: \n");
+				System.out.println("[ 1 - View the Highest Accident Rate between "+ choice + " and " + tenyear +                     "]");
+				System.out.println("[ 2 - View the Highest Fatality Count between "+ choice + " and " + tenyear +                    "]");
+				System.out.println("[ 3 - View the Highest Accident count in descending order between "+ choice + " and " + tenyear +"]");
+				System.out.println("[ 4 - View the Highest Fatality count in descending order between "+ choice + " and " + tenyear +"]");
+				System.out.println("[ Q - Quit to the Main Menu                                                                       ]");
 				System.out.print("Enter Choice:");
 				option = s.nextLine().toUpperCase();
 				
@@ -795,44 +872,99 @@ public class AADAS {
 				
 				if (option.equals("1")) {
 					
-					for (int i=0; i<makeModel.size(); i++)
-					{
-						System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities =  "+makeModelFatalCount.get(i));
-						if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
-							highI = i;
-					}
-					System.out.println("\nThe Aircraft Make and Model with the highest fatality count over the specified 10 year period is:\n");
-					System.out.println("Make/Model = ["+makeModel.get(highI)+"] and the Total Fatalities = ["+makeModelFatalCount.get(highI)+ "] (Between "+ choice + " and " + tenyear+")" );
-					System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
-					option1 = s.nextLine().toUpperCase();
-					if(option1.equals("Q")) {
+
+					
+					Map<String, Integer> sortedMap = sortByValue(highestaccident);
+					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
+			        for (Entry<String, Integer> entry : sortedMap.entrySet()) {  // Itrate through hashmap
+			            if (entry.getValue()==maxValueInMap) {
+			                System.out.println("\n"+ entry.getKey() + " Had " + entry.getValue() + " recorded accidents between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			                System.out.println((entry.getValue()*100/sortedMap.size())+ "% of all crashes in this 10 year period happened in this aircraft");
+			            }
+			          
+			        }
+			        System.out.println("\nPress Q to quit back to the main menu or the enter key to access the year menu to run the feature again\n");
+					option = s.nextLine().toUpperCase();
+					if(option.equals("Q")) {
 						menu();
 					}
 					else {
 					Feature6(crash);
 				}
 					}
+				
+				
+				
+				
+				
 				else if (option.equals("2")) {
-					System.out.println("\nThe Aircraft Make and Model with the highest Accident rate over the specified 10 year period is:\n");
-					System.out.println("Make/Model = ["+makeModel.get(highR)+"] and the Total Accident Rate = ["+makeModelAccidentCount.get(highR)+ "] (Between "+ choice + " and " + tenyear+")" );
-					System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
-					option1 = s.nextLine().toUpperCase();
-					if(option1.equals("Q")) {
+
+					Map<String, Integer> sortedMap = sortByValue(highestfatality);
+					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
+			        for (Entry<String, Integer> entry : sortedMap.entrySet()) {  // Itrate through hashmap
+			            if (entry.getValue()==maxValueInMap) {
+			                System.out.println(entry.getKey() + " Had " + entry.getValue() + " recorded fatalities between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			                System.out.println((entry.getValue()*100/sortedMap.size())+ "% of all fatalities in this 10 year period happened in this aircraft");
+
+			            }
+			        }  
+			        System.out.println("\nPress Q to quit back to the main menu or the enter key to access the year menu to run the feature again\n");			        System.out.println("Press Q to quit back to the main menu or the enter key to access the year menu to run the feature again");
+			        option = s.nextLine().toUpperCase();
+					if(option.equals("Q")) {
 						menu();
 					}
 					else {
 					Feature6(crash);
 				}
+			        }
+				
+				
+				
+				else if (option.equals("3")) {
+					Map<String, Integer> sortedMap = sortByValuedesc(highestaccident);
+					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
+			        for (Entry<String, Integer> entry : sortedMap.entrySet()) {  // Itrate through hashmap
+			         System.out.println(entry.getKey() + " Had " + entry.getValue() + " recorded accidents between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			            
 				}
-				else if (option.equals("Q")) {
-					System.out.println("-- Returning To Main Menu --" );
+			        System.out.println("\nPress Q to quit back to the main menu or the enter key to access the year menu to run the feature again\n");			        System.out.println("Press Q to quit back to the main menu or the enter key to access the year menu to run the feature again");
+			    option = s.nextLine().toUpperCase();
+			    if(option.equals("Q")) {
 					menu();
 				}
 				else {
+					Feature6(crash);
+				}
+				}
+				
+				else if (option.equals("4")) {
+					Map<String, Integer> sortedMap = sortByValuedesc(highestfatality);
+					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
+			        for (Entry<String, Integer> entry : sortedMap.entrySet()) {  // Itrate through hashmap
+			         System.out.println(entry.getKey() + " Had " + entry.getValue() + " recorded accidents between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			            
+				}
+			        System.out.println("\nPress Q to quit back to the main menu or the enter key to access the year menu to run the feature again\n");			        System.out.println("Press Q to quit back to the main menu or the enter key to access the year menu to run the feature again");
+			    option = s.nextLine().toUpperCase();
+			    if(option.equals("Q")) {
+					menu();
+				}
+				else {
+					Feature6(crash);
+				}
+				}
+	
+				  
+	           else if (option.equals("Q")) {
+		System.out.println("-- Returning To Main Menu --" );
+	           }             else {
 					System.out.println("**Please select a Valid Option**");
 				}
-					
-		}
+				
+				
+	}
+
+				
 			
 	//FEATURE 9 - Custom Feature 10 year country 
 	public static void featureH(List<AADAS>crash) throws FileNotFoundException {
@@ -897,8 +1029,8 @@ public class AADAS {
 			System.out.println("[ 3 - Phases of Flight                          ]");
 			System.out.println("[ 4 - Specific phase of flight and year         ]");
 			System.out.println("[ 5 - Specifcs of crashes                       ]");
-      System.out.println("[ 6 - Highest Accident/Fatalities               ]");
-      System.out.println("[ 8 - Country of Crashes                        ]");
+			System.out.println("[ 6 - Highest Accident/Fatalities               ]");
+			System.out.println("[ 7 - Country of Crashes                        ]");
 
 			
 
@@ -936,12 +1068,12 @@ public class AADAS {
 				System.out.println("-- Below you have a list of all the specifc records we can provide --");
 				Feature4(crash);
 				break;
-      case "6":
+			case "6":
 				System.out.println("\n-- You have selected Highest Accident/Fatalities --\n");
 				System.out.println("-- Below are the options for a specified 10 year period --\n ");
 				Feature6(crash);
 				break;
-			case "8":
+			case "7":
         System.out.println("\n-- You have selected Crashes within countries--\n");
 				System.out.println("-- Below you have a list of all the specifc records we can provide --");
 				featureH(crash);
