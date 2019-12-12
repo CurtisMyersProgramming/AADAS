@@ -1,12 +1,17 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.TreeSet;
+
+import com.sun.xml.internal.ws.util.StringUtils;
 
 public class AADASunopto {
 
@@ -735,6 +740,7 @@ public class AADASunopto {
 			ArrayList<String> makeModel = new ArrayList<String>();
 			ArrayList<Integer> makeModelFatalCount = new ArrayList<Integer>();
 			ArrayList<Integer>makeModelAccidentCount = new ArrayList<Integer>();
+			List<AADAS> sortFatal = new ArrayList<>();
 			
 			//for loop to iterate through the matches array
 			for (int i = 0; i < matches.size(); i++) {
@@ -758,6 +764,7 @@ public class AADASunopto {
 //				makeModel.add(currentCrash.Make + "" + currentCrash.Model); // adding EventDate to years arraylist characted 6 - 10 (year 4 digits)
 			}
 			
+			
 			String option1 = "";
 
 			
@@ -776,8 +783,11 @@ public class AADASunopto {
 				}
 			
 			//loop through the makeModel array and output all makes/models with their accident rate, and highI determines the highest accident rate
-			
-		
+			  String[] elementlist = new String[makeModel.size()];
+			    Iterator<String> iter = makeModel.iterator();
+			    for (int j = 0; iter.hasNext(); j++) {
+			        elementlist[j] = iter.next();
+			    }
 			
 //			TreeSet<String> newTreeSet = new TreeSet<String>(); // initialising new treeset called myTreeSet
 //			newTreeSet.addAll(makeModel); // adding all data from years array (all dates) to tree set (ordered set)
@@ -835,15 +845,19 @@ public class AADASunopto {
 					}
 					else if (option.equals("3")) {
 						
-						for (int i=0; i<makeModel.size(); i++)
-						{
-		
-							
-							System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities =  "+makeModelFatalCount.get(i));
-							if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
-								highI = i;
-							
-						}
+						
+//						   int[] elementlist1 = new int[makeModelFatalCount.size()];
+//						    Iterator<Integer> iter1 = makeModelFatalCount.iterator();
+//						    for (int j = 0; iter.hasNext(); j++) {
+//						        elementlist1[j] = iter1.next();
+//						    }
+//
+//						    int[] list = insertionSort(list, elementlist);
+//						    for (Integer in : list) {
+//						        System.out.println(in);
+//						    }
+						
+				
 						System.out.println("\nThe Aircraft Make and Models are listed below in decending order by Higest fatality count first.:\n");
 					
 				System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
@@ -855,18 +869,25 @@ public class AADASunopto {
 				Feature6(crash);
 			}}
 					else if (option.equals("4")) {
-	
-						for (int i=0; i<makeModel.size(); i++)
-						{
-							if (makeModelAccidentCount.get(i) > makeModelAccidentCount.get(highR))
-								highR = i;
-						
-							
-							System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Accidents =  "+makeModelAccidentCount.get(i));
-							
-							}
-						System.out.println("Make/Model = ["+makeModel.get(highR)+"] and the Total Accident Rate = ["+makeModelAccidentCount.get(highR)+ "] (Between "+ choice + " and " + tenyear+")" );
+					
+						   int[] elementlist2 = new int[makeModelAccidentCount.size()];
+						    Iterator<Integer> iter2 = makeModelAccidentCount.iterator();
+						    for (int j = 0; iter2.hasNext(); j++) {
+						        elementlist2[j] = iter2.next();
+						    }
+							  String[] elementlist3 = new String[makeModel.size()];
+							    Iterator<String> iter3 = makeModel.iterator();
+							    for (int j = 0; iter3.hasNext(); j++) {
+							        elementlist3[j] = iter3.next();
+							    }
 
+						    int[] list = insertionSort(elementlist3, elementlist2);
+						  
+						    for (Object in : list) {
+						    	
+						        System.out.println(in);
+						    }
+						    
 							System.out.println("\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
 							option1 = s.nextLine().toUpperCase();
 							if(option1.equals("Q")) {
@@ -876,21 +897,49 @@ public class AADASunopto {
 							Feature6(crash);
 						}
 						}
-					
-						
-						
+
 				else if (option.equals("Q")) {
 					System.out.println("-- Returning To Main Menu --" );
 					menu();
 				}
-				
 				else {
 					System.out.println("**Please select a Valid Option**");
-				}
-				
-					
+				}	
 		}
-			
+
+	public static int[] insertionSort(String[]List, int[] list) {
+	    for (int i = 1; i < list.length; i++) {
+	        int next = list[i];
+	        String nextstr = List[i];
+	        
+	        // find the insertion location while moving all larger element up
+	        int j = i;
+	        int x = i;
+	        while (j > 0 && list[j - 1] < next) {
+	            list[j] = list[j - 1];
+	            List[x] = List[x - 1];
+	            // make model switch 
+	            j--;
+	           
+	        }
+	        // insert the element
+	        List[x] = nextstr;
+	        list[j] = next;
+	        
+	        String strArray[] = new String[list.length];
+	        
+	        for ( int z = 0; z < list.length; z++)
+	        	strArray[z] = String.valueOf(list[z]);
+	        
+	        Arrays.toString(strArray);
+	    
+	    }
+	    
+	        return list;
+	    }
+
+	 
+	
 	//FEATURE 9 - Custom Feature 10 year country 
 	public static void featureH(List<AADAS>crash) throws FileNotFoundException {
 		Scanner s = new Scanner(System.in);
