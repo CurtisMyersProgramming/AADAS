@@ -248,7 +248,7 @@ public class AADASunopto {
 
 		}
 
-		insertSortint(yearslisted);						//NEEDS TO BE CHANGED TO INSERT SORT
+		insertSortint(yearslisted);						
 
 		
 
@@ -737,11 +737,11 @@ public class AADASunopto {
 			if (year >= chosenYear && year <= tenyear) {                                                                                                     // if statement
 				matches.add(c);                                                                                                                              // add to array
 			}
-
+		}
 		
 			outputCrashes(matches);                                                                                                                          // output all crashes in array
 			System.out.println("\nThere are " + matches.size()+ " records which match that criteria in this 10 year period between " + choice + " and "+ tenyear); // output letting user know how records match
-		}
+		
 	}
 
 	// FEATURE F/G - Aircraft Make and Type with the highest.. (10 Year Period) - NOT DONE
@@ -825,10 +825,26 @@ public class AADASunopto {
 			String makeModelStr = currentCrash.Make + " " + currentCrash.Model;
 			int index = makeModel.indexOf(makeModelStr);
 			int count = makeModelAccidentCount.get(index);
-			count++;
+			
 			makeModelAccidentCount.set(index, count);
 			
+			
+			MakeRecord theOne = null;
+			for (MakeRecord makerec : amount) {
+				if (makerec.getmakemodel().equals(makeModelStr))
+					theOne = makerec;
+				
+			}
+			if (theOne == null) {
+				theOne = new MakeRecord(makeModelStr, 0);
+				amount.add(theOne);
+				
+			}
+			count++;
+			theOne.setamount(theOne.amount() + count);
+			
 		}
+		
 
 	
 
@@ -871,9 +887,8 @@ public class AADASunopto {
 		
 		if (option.equals("2")) {
 
-				for (int i = 0; i < makeModel.size(); i++) {
-					// System.out.println("Make/Model = " +makeModel.get(i)+" - Number of Fatalities
-					// = "+makeModelFatalCount.get(i));
+				for (int i = 0; i < makeModel.size(); i++) {																			
+					
 					if (makeModelFatalCount.get(i) > makeModelFatalCount.get(highI))
 						highI = i;
 				}
@@ -916,15 +931,13 @@ public class AADASunopto {
 		else if (option.equals("4")) {
 
 			insertSort(amount);
-			
-		
 			for (MakeRecord comparator : amount) {
 				System.out.println(comparator.getmakemodel() + " + " + comparator.amount());
 
 			
 			
 			}
-
+			System.out.println("\nThe Aircraft Make and Models are listed below in decending order by Higest Accident Rate first.:\n");
 			System.out.println(
 					"\nPlease press Enter to continue to reselect a 10 year period\nOr Type Q then Enter to return to the Main Menu");
 			option1 = reader.nextLine().toUpperCase();
@@ -1018,7 +1031,7 @@ public class AADASunopto {
 	
 	// SYSTEM MAIN MENU
 	public static void menu() throws FileNotFoundException { // DECLARE PUBLIC CLASS
-		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 
@@ -1032,7 +1045,7 @@ public class AADASunopto {
 			System.out.println("[ 4 - Specific phase of flight and year         ]");
 			System.out.println("[ 5 - Specifcs of crashes                       ]");
 			System.out.println("[ 6 - Highest Accident/Fatalities               ]");
-			System.out.println("[ 8 - Country of Crashes                        ]");
+			System.out.println("[ 7 - Country of Crashes                        ]");
 
 			System.out.println("[ Q - Quit                                      ]\n");
 			System.out.print("Enter Choice:");
@@ -1073,7 +1086,7 @@ public class AADASunopto {
 				System.out.println("-- Below are the options for a specified 10 year period --\n ");
 				FeatureF(crash);
 				break;
-			case "8":
+			case "7":
 				System.out.println("\n-- You have selected Crashes within countries--\n");
 				System.out.println("-- Below you have a list of all the specifc records we can provide --");
 				featureH(crash);

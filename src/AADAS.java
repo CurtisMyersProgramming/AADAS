@@ -263,7 +263,7 @@ public class AADAS {
 	}
 
 	// FEATURE 1 - OUTPUT ALL YEARS
-	public static void year(List<AADAS> crash) { // DECLARE PUBLIC CLASS
+	public static void FeatureA(List<AADAS> crash) { // DECLARE PUBLIC CLASS
 		int j = 0; // initialised int j for counter later of how many years are read through to
 					// display
 		ArrayList<String> years = new ArrayList<String>(); // new arraylist called years
@@ -286,7 +286,7 @@ public class AADAS {
 	}
 
 	// FEATURE 2 - OUTPUT PHASES OF FLGHT
-	public static void flightPhase(List<AADAS> crash) {
+	public static void FeatureB(List<AADAS> crash) {
 		int p = 0; // initialised int p for counter later of how many phases are read through to
 					// display
 		ArrayList<String> phases = new ArrayList<String>(); // new arraylist called phases
@@ -306,7 +306,7 @@ public class AADAS {
 	}
 
 	// FEATURE 3 - OUTPUT SPECIFIC PHASE OF FLIGHT AND YEAR DATA
-	public static void Feature3(List<AADAS> crash) {
+	public static void FeatureC(List<AADAS> crash) {
 
 		Scanner s = new Scanner(System.in); // declare new scanner
 		String inputflight = ""; // declare input for flight
@@ -315,13 +315,13 @@ public class AADAS {
 		System.out.println("Please specify the phase of flight you would like to view the options are:\n"); // output
 																											// message
 																											// to user
-		flightPhase(crash); // call method to output all phases of flight
+		FeatureB(crash); // call method to output all phases of flight
 		System.out.println("\nSelection: "); // print out prompt for user to enter choice
 		inputflight = s.nextLine().toUpperCase(); // input for user must always go to uppercase as csv is uppercase
 
 		System.out.println("\nPlease specify the year you would like to view the options are:\n"); // print prompt for
 																									// years
-		year(crash); // method to print years
+		FeatureA(crash); // method to print years
 		System.out.println("\nYear selection: "); // prompt for year input
 		inputyear = s.nextLine(); // take year input
 
@@ -347,7 +347,7 @@ public class AADAS {
 	}
 
 	// FEATURE 4 - OUTPUT SPECIFIC OPTIONS FROM MENU
-	public static void Feature4(List<AADAS> crash) throws FileNotFoundException {
+	public static void FeatureD(List<AADAS> crash) throws FileNotFoundException {
 
 		Scanner s = new Scanner(System.in);
 		while (!s.equals("Q")) {
@@ -375,16 +375,16 @@ public class AADAS {
 				}
 				outputCrashes(matches); // output the new array 
 				System.out.println("\nThere are " + p + " records that match the criteria of eveybody onboard dying"); // show how many records match what the user selected
-				Feature5SubMenu(); // method to print sub menu 
+				FeatureESubMenu(); // method to print sub menu 
 				String choice = reader.nextLine().toUpperCase(); // scanner to uppercaase
 				
 				if(choice.equals("Y")) { // if statment for user choice
 					Scanner t = new Scanner(System.in); // Initialise Scanner
 					String userInput = ""; // Allow for user input
-					menuFeature5(matches); // output menu method which has method inside to carry out options from menu
+					menuFeatureE(matches); // output menu method which has method inside to carry out options from menu
 					
 				} else if(choice.contentEquals("N")) { // if user types "n" return them to feature 4 menu 
-				    Feature4(null);
+				    FeatureD(null);
 				} else {
 					menu(); // else return them to main menu 
 				}
@@ -407,17 +407,17 @@ public class AADAS {
 				
 				outputCrashes(matches);
 				System.out.println("There are " + p + " records that match the criteria of the flight being deadly but the amount of surviviors being greater or equal to the amount perished");
-				Feature5SubMenu();
+				FeatureESubMenu();
 				String choice = reader.nextLine().toUpperCase();
 				if(choice.equals("Y")) {
 					Scanner t = new Scanner(System.in); // Initialise Scanner
 					String userInput = ""; // Allow for user input
-					menuFeature5(matches);
+					menuFeatureE(matches);
 					// while loop to output menu and read the users input
 					
 				
 				} else if(choice.contentEquals("N")) {
-				    Feature4(null);
+				    FeatureD(null);
 				} else {
 					menu();
 				}
@@ -440,17 +440,17 @@ public class AADAS {
 				
 				outputCrashes(matches);
 				System.out.println("There are " + p + " records that match the criteria");
-				Feature5SubMenu();
+				FeatureESubMenu();
 				String choice = reader.nextLine().toUpperCase();
 				if(choice.equals("Y")) {
 					Scanner t = new Scanner(System.in); // Initialise Scanner
 					String userInput = ""; // Allow for user input
-					menuFeature5(matches);
+					menuFeatureE(matches);
 					// while loop to output menu and read the users input
 					
 				
 				} else if(choice.contentEquals("N")) {
-				    Feature4(null);
+				    FeatureD(null);
 				} else {
 					menu();
 				}
@@ -472,17 +472,17 @@ public class AADAS {
 				
 				outputCrashes(matches);
 				System.out.println("There are " + p + " records that match the criteria of flights that had 0 fatalities or injuries");
-				Feature5SubMenu();
+				FeatureESubMenu();
 				String choice = reader.nextLine().toUpperCase();
 				if(choice.equals("Y")) {
 					Scanner t = new Scanner(System.in); // Initialise Scanner
 					String userInput = ""; // Allow for user input
-					menuFeature5(matches);
+					menuFeatureE(matches);
 					// while loop to output menu and read the users input
 					
 				
 				} else if(choice.contentEquals("N")) {
-				    Feature4(null);
+				    FeatureD(null);
 				} else {
 					menu();
 				
@@ -497,7 +497,7 @@ public class AADAS {
 	}
 
 	// FEATURE 5 - PHASE OF FLIGHT 
-	public static void Feature5phase(List<AADAS> crash) throws FileNotFoundException{
+	public static void FeatureEphase(List<AADAS> crash) throws FileNotFoundException{
 		Scanner s = new Scanner(System.in); // declare new scanner
 		String inputflight = ""; // declare input for flight
 		 // declare input for year
@@ -505,7 +505,7 @@ public class AADAS {
 		System.out.println("Please specify the phase of flight you would like to view the options are:\n"); // output
 																											// message
 																											// to user
-		flightPhase(crash); // call method to output all phases of flight
+		FeatureB(crash); // call method to output all phases of flight
 		System.out.println("\nSelection: "); // print out prompt for user to enter choice
 		inputflight = s.nextLine().toUpperCase(); // input for user must always go to uppercase as csv is uppercase
 
@@ -534,7 +534,7 @@ public class AADAS {
 	}
 	
 	// FEATURE 5 - AIRCRAFT TYPE
-	public static void Featre5Aircraft(List<AADAS> crash) throws FileNotFoundException{
+	public static void FeatreEAircraft(List<AADAS> crash) throws FileNotFoundException{
 		int p = 0; // initialised int p for counter later of how many phases are read through to
 		// display
 		ArrayList<String> aircraft = new ArrayList<String>(); // new arraylist called phases
@@ -554,7 +554,7 @@ public class AADAS {
 	}
 	
 	//FEATURE 5 - MAKE 
-	public static void Featre5make(List<AADAS> crash) throws FileNotFoundException{
+	public static void FeatreEmake(List<AADAS> crash) throws FileNotFoundException{
 		int p = 0; // initialised int p for counter later of how many phases are read through to
 		// display
 		ArrayList<String> make = new ArrayList<String>(); // new arraylist called phases
@@ -574,7 +574,7 @@ public class AADAS {
 	}
 	
 	// FEATURE 5 - TYPE 
-	public static void Featre5type(List<AADAS> crash) throws FileNotFoundException{
+	public static void FeatreEtype(List<AADAS> crash) throws FileNotFoundException{
 		int p = 0; // initialised int p for counter later of how many phases are read through to
 		// display
 		ArrayList<String> type = new ArrayList<String>(); // new arraylist called phases
@@ -594,7 +594,7 @@ public class AADAS {
 	}
 	
 	// FEATURE 5 - MAKE AND TYPE
-	public static void Feature5MakeAndType(List<AADAS> crash) throws FileNotFoundException {
+	public static void FeatureEMakeAndType(List<AADAS> crash) throws FileNotFoundException {
 
 		Scanner s = new Scanner(System.in); // declare new scanner
 		String inputmake = ""; // declare input for flight
@@ -603,13 +603,13 @@ public class AADAS {
 		System.out.println("Please specify the make of plane you would like to view the options are:\n"); // output
 																											// message
 																											// to user
-	    Featre5make(crash); // call method to output all phases of flight
+	    FeatreEmake(crash); // call method to output all phases of flight
 		System.out.println("\nSelection: "); // print out prompt for user to enter choice
 		inputmake = s.nextLine().toUpperCase(); // input for user must always go to uppercase as csv is uppercase
 
 		System.out.println("\nPlease specify the model you would like to view the options are:\n"); // print prompt for
 																									// years
-		Featre5type(crash); // method to print years
+		FeatreEtype(crash); // method to print years
 		System.out.println("\nYear selection: "); // prompt for year input
 		inputtype = s.nextLine(); // take year input
 
@@ -634,10 +634,10 @@ public class AADAS {
 
 	}
 	
-	// FEATURE 5- MAIN MENU
-	public static void menuFeature5(List<AADAS> matches) throws FileNotFoundException { // DECLARE PUBLIC CLASS
+	// FEATURE E- MAIN MENU
+	public static void menuFeatureE(List<AADAS> matches) throws FileNotFoundException { // DECLARE PUBLIC CLASS
 
-		ArrayList<AADAS> crash = readFile("src/aviationdata.csv"); // Crash array list read from the .csv file
+		ArrayList<AADAS> crash = readFile("aviationdata.csv"); // Crash array list read from the .csv file
 		Scanner s = new Scanner(System.in); // Initialise Scanner
 		String userInput = ""; // Allow for user input
 
@@ -658,21 +658,21 @@ public class AADAS {
 			case "1":
 				System.out.println("\n-- You have selected 10 year period --\n");
 				System.out.println("-- Below you have a list of all of the crashes recorded --\n");
-				Feature5years(matches);
-				Feature4(crash);
+				FeatureEyears(matches);
+				FeatureD(crash);
 				break;
 			case "2":
 				System.out.println("\n-- You have selected Phase of flight --\n");
 				System.out.println("-- Below you have a list of all of the Event dates --\n");
-				Feature5phase(matches);
-				Feature4(crash);
+				FeatureEphase(matches);
+				FeatureD(crash);
 				
 				break;
 			case "3":
 				System.out.println("\n-- You have selected Aircraft Make and Type --\n");
 				System.out.println("-- Below you will see all of the phases of flight --\n");
-				Feature5MakeAndType(matches);
-				Feature4(crash);
+				FeatureEMakeAndType(matches);
+				FeatureD(crash);
 				break;
 		
 			case "Q":
@@ -709,7 +709,7 @@ public class AADAS {
 	}
 	
 	//FEATURE 5 - SUBMENU
-	public static void Feature5SubMenu() {
+	public static void FeatureESubMenu() {
 		System.out.println("Would you like to further refine your search");
 		System.out.println("Y - Access the menu of more options");
 		System.out.println("N - Return to the Feature 4 menu");
@@ -718,10 +718,10 @@ public class AADAS {
 	}
     
 	//FEATURE 5 - 10 YEAR 
-	public static void Feature5years(List<AADAS> crash) {
+	public static void FeatureEyears(List<AADAS> crash) {
 		System.out.println("This option will show you all records for the option previously selected in a 10 year window of your choice.");// output message to user
 		
-		year(crash); // call year method
+		FeatureA(crash); // call year method
     System.out.println("Above are the years we have on record, please enter one below and we will show all records from that date to 10 years ahead of that date"); // output message of what will happen
 	System.out.println("choice: "); // prompt
 	String choice = reader.nextLine(); // scanner
@@ -738,22 +738,15 @@ public class AADAS {
 				                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
 				matches.add(c); // add to array
 			}
-		
-//		for(int i = chosenYear; i <= tenyear; i++) { // i = event date and iterate eventdate until it is equal to ten year 
-//			for(AADAS c : crash) { // each loop of eventdate (2001, 2002, 2003....) run the whole array 
-//				if (c.getYearparse() == i) { // get year parse uses the get year method and parses it to an int for comparison reasons
-//					                         // get year parse will check   for each loop if i has any matches if it does add those to the array 
-//					matches.add(c); // add to array
-//				}
-//			}
-//			}
+		}
+
 		outputCrashes(matches); // output all crashes in array 
 		System.out.println("\nThere are " + matches.size() + " records which match that criteria in this 10 year period between " + choice + " and " + tenyear); // output letting user know how records match 
-		}
+		
 	}
   
 	//FEATURE 6 - COUNTRY 
-	public static void Feature6country(List<AADAS> crash) throws FileNotFoundException{
+	public static void FeatureFcountry(List<AADAS> crash) throws FileNotFoundException{
 		int p = 0; // initialised int p for counter later of how many phases are read through to
 		// display
 		ArrayList<String> Country = new ArrayList<String>(); // new arraylist called phases
@@ -773,10 +766,10 @@ public class AADAS {
 	}
   
     //FEATURE 7 / FEATURE 8  - Aircraft Make and Type with the highest.. (10 Year Period)
-	public static void Feature6(List<AADAS> crash) throws FileNotFoundException  {
+	public static void FeatureFG(List<AADAS> crash) throws FileNotFoundException  {
 			Scanner s = new Scanner(System.in); // declare new scanner
 			
-			year(crash);
+			FeatureA(crash);
 			System.out.println("Please specify the year that you would like to view 10 years worth of data from : e.g. 2001, 1978\n");
 
 			String choice = reader.nextLine(); // scanner
@@ -877,8 +870,8 @@ public class AADAS {
 					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
 			        for (Entry<String, Integer> entry : sortedMap.entrySet()) {  // Itrate through hashmap
 			            if (entry.getValue()==maxValueInMap) {
-			                System.out.println("\n"+ entry.getKey() + " Had " + entry.getValue() + " recorded accidents between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
-			                System.out.println((entry.getValue()*100/sortedMap.size())+ "% of all crashes in this 10 year period happened in this aircraft");
+			                System.out.println("\n ["+ entry.getKey() + "] Had [" + entry.getValue() + "] recorded accidents between ["+ choice + " and " + tenyear + "]\n Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			                System.out.println(""+(entry.getValue()*100/sortedMap.size())+ "% of all crashes in this 10 year period happened in this aircraft");
 			            }
 			        }
 			          
@@ -889,7 +882,7 @@ public class AADAS {
 						menu();
 					}
 					else {
-					Feature6(crash);
+					FeatureFG(crash);
 				}
 					}
 				
@@ -904,8 +897,8 @@ public class AADAS {
 					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
 			        for (Entry<String, Integer> entry : sortedMap.entrySet()) {  // Itrate through hashmap
 			            if (entry.getValue()==maxValueInMap) {
-			                System.out.println(entry.getKey() + " Had " + entry.getValue() + " recorded fatalities between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
-			                System.out.println((entry.getValue()*100/sortedMap.size())+ "% of all fatalities in this 10 year period happened in this aircraft");
+			                System.out.println("\n ["+entry.getKey() + "] Had [" + entry.getValue() + "] recorded fatalities between ["+ choice + " and " + tenyear + "]\n Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			                System.out.println(" "+(entry.getValue()*100/sortedMap.size())+ "% of all fatalities in this 10 year period happened in this aircraft");
 
 			            }
 			        }  
@@ -915,7 +908,7 @@ public class AADAS {
 						menu();
 					}
 					else {
-					Feature6(crash);
+					FeatureFG(crash);
 				}
 			        }
 				
@@ -925,7 +918,7 @@ public class AADAS {
 					Map<String, Integer> sortedMap = sortByValuedesc(highestaccident);
 					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
 			        for (Entry<String, Integer> entry : sortedMap.entrySet()) {  // Itrate through hashmap
-			         System.out.println(entry.getKey() + " Had " + entry.getValue() + " recorded accidents between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			         System.out.println("["+entry.getKey() + "] Had [" + entry.getValue() + "] recorded accidents between "+ choice + " and " + tenyear+"");
 			            
 				}
 			        System.out.println("\nPress Q to quit back to the main menu or the enter key to access the year menu to run the feature again\n");			       
@@ -934,7 +927,7 @@ public class AADAS {
 					menu();
 				}
 				else {
-					Feature6(crash);
+					FeatureFG(crash);
 				}
 				}
 				
@@ -942,7 +935,7 @@ public class AADAS {
 					Map<String, Integer> sortedMap = sortByValuedesc(highestfatality);
 					int maxValueInMap=(Collections.max(sortedMap.values()));  // This will return max value in the Hashmap
 			        for (Entry<String, Integer> entry2 : sortedMap.entrySet()) {  // Itrate through hashmap
-			         System.out.println(entry2.getKey() + " Had " + entry2.getValue() + " recorded accidents between "+ choice + " and " + tenyear + " Which is the highest accident rate for this 10 year period out of a total of " + sortedMap.size() + " records");
+			         System.out.println("["+entry2.getKey() + "] Had [" + entry2.getValue() + "] recorded accidents between "+ choice + " and " + tenyear);
 			            
 				}
 			        System.out.println("\nPress Q to quit back to the main menu or the enter key to access the year menu to run the feature again\n");			        
@@ -951,7 +944,7 @@ public class AADAS {
 					menu();
 				}
 				else {
-					Feature6(crash);
+					FeatureFG(crash);
 				}
 				}
 	
@@ -974,11 +967,11 @@ public class AADAS {
 		List<AADAS> matches = new ArrayList<>(); // new array 
 		String inputCountry = "";
 		String choice = "";
-		year(crash);
+		FeatureA(crash);
 		System.out.println("Above are the years we have on record, please enter one below and we will show all records from that date to 10 years ahead of that date"); // output message of what will happen
 		System.out.println("choice: "); // prompt
 	  choice = reader.nextLine(); // scanner
-		Feature6country(crash);
+		FeatureFcountry(crash);
 		System.out.println("Please choose a Country by typing the name exactly as seen above");
 		System.out.print("Choice: ");
 		
@@ -1041,28 +1034,27 @@ public class AADAS {
 				System.out.println("\n-- You have selected Event Dates --\n");
 				System.out.println("-- Below you have a list of all of the Event dates --\n");
 
-				year(crash);
+				FeatureA(crash);
 				break;
 			case "3":
 				System.out.println("\n-- You have selected Phases of Flight --\n");
 				System.out.println("-- Below you will see all of the phases of flight --\n");
-				flightPhase(crash);
+				FeatureB(crash);
 				break;
 			case "4":
 				System.out.println("\n-- You have selected specific phase of flight and year --\n");
-				System.out.println(
-						"-- Below you have a list of all of the accidents recorded for the options you have chosen --\n");
-				Feature3(crash);
+				System.out.println("-- Below you have a list of all of the accidents recorded for the options you have chosen --\n");
+				FeatureC(crash);
 				break;
 			case "5":
 				System.out.println("\n-- You have selected Specifcs of crashes --\n");
 				System.out.println("-- Below you have a list of all the specifc records we can provide --");
-				Feature4(crash);
+				FeatureD(crash);
 				break;
 			case "6":
 				System.out.println("\n-- You have selected Highest Accident/Fatalities --\n");
 				System.out.println("-- Below are the options for a specified 10 year period --\n ");
-				Feature6(crash);
+				FeatureFG(crash);
 				break;
 			case "7":
         System.out.println("\n-- You have selected Crashes within countries--\n");
