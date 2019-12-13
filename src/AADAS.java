@@ -1123,4 +1123,9 @@ public class AADAS {
 		return crashes;
 
 	}
+
+	public int compareTo(AADAS lower) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
